@@ -1,4 +1,4 @@
-import argparse
+def csv_read
 
 def turnCount(cond):
     #kamus lokal
@@ -77,7 +77,8 @@ def turnMenu(turn_counter):
 2. Use Potion
 3. Quit""")
     tslct=int(input('Pilih perintah: '))
-    if tslct 
+    if tslct == 1:
+
 
 def atkMech(atk,dfd,buff_1,buff_2):
     atkCnt=atk*(1+buff_1)
