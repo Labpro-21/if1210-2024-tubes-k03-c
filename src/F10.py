@@ -52,25 +52,115 @@ def beli_shop():
       user_id = user_entry[0]
       user_oc = int(user_entry[4])
       break
-  
+
   print("Jumlah O.W.C.A. Coin-mu sekarang ", user_oc, ".")
   beli = input(">>> Mau beli apa? (monster/potion): ")
   if (beli == "monster"):
+    monster_inventory = baca_csv("monster_inventory.csv")
+    monster_data = baca_csv("monster.csv")
+    monster_shop_data = baca_csv("monster_shop.csv")
     id_monster = input(">>> Masukkan id monster: ")
+    for i, item in enumerate(monster_shop_data[1:], start=1):  # Skip header row
+      if item[0] == id_monster:
+        index = i
+        break
+    if index == -1:
+      print("Monster dengan ID tersebut tidak ditemukan.")
+      return
     
+    if int(monster_shop_data[index][2]) > user_oc:
+      print("OC-mu tidak cukup.")
+      return
+
+    if (int(monster_shop_data[index][1]) > 0):
+      monster_name = ""
+      for monster in monster_data[1:]:
+        if monster[0] == id_monster:
+          monster_name = monster[1]
+          break
+
+      for monster_entry in monster_inventory[1:]:
+        if int(monster_entry[0]) == int(user_id) and monster_entry[1] == id_monster:
+          print(f"Monster {monster_name} sudah ada dalam inventory-mu! Pembelian dibatalkan.")
+          return
+
+      print(f"Berhasil membeli item: {monster_name}. Item sudah masuk ke inventory-mu!")
+      monster_inventory.append([user_id, id_monster, 1])
+      monster_shop_data[index][1] = str(int(monster_shop_data[index][1]) - 1)
+
+      for user_entry in user_data[1:]:
+        if user_entry[1] == username_login:
+          user_entry[4] = str(int(user_entry[4]) - int(monster_shop_data[index][1]))
+
+      tulis_csv("monster_inventory.csv", monster_inventory)
+      tulis_csv("monster_shop.csv", monster_shop_data)
+      tulis_csv("user.csv", user_data)
+
+    else:
+      print("Stok habis.")
+
+  elif (beli == "potion"):
+    item_shop = baca_csv("item_shop.csv")
+    item_inventory = baca_csv("item_inventory.csv")
+
+    id_potion = input(">>> Masukkan id potion: ")
+    jumlah = int(input(">>> Masukkan jumlah: "))
+    potion_fixed = ["strength", "resilience", "healing"]
     
-  else: # beli == potion
+    for i, item in enumerate(item_shop[1:], start=1):
+      if item[0] == potion_fixed[int(id_potion)-1]:
+        index = i
+        break
+    else:
+      print("Potion dengan ID tersebut tidak ditemukan.")
+      return
+
+    total = jumlah*int(item_shop[index][2])
+    if int(total) > user_oc:
+      print("OC-mu tidak cukup.")
+      return
+    
+    if int(item_shop[index][1]) >= jumlah:
+      print(f"Berhasil membeli item: {jumlah} Potion of {potion_fixed[index-1]}. Item sudah masuk ke inventory-mu!")
+
+      found = False
+      for item_entry in item_inventory[1:]:
+        if item_entry[0] == user_id and item_entry[1] == potion_fixed[int(id_potion)-1]:
+          item_entry[2] = str(int(item_entry[2]) + jumlah)
+          found = True
+          break
+      
+      if not found:
+        item_inventory.append([user_id, potion_fixed[int(id_potion)-1], str(jumlah)])
+
+      item_shop[index][1] = str(int(item_shop[index][1]) - jumlah)
+
+      for user_entry in user_data[1:]:
+        if user_entry[1] == username_login:
+          user_entry[4] = str(int(user_entry[4]) - total)
+
+      tulis_csv("item_inventory.csv", item_inventory)
+      tulis_csv("item_shop.csv", item_shop)
+      tulis_csv("user.csv", user_data)
+
 
 
 def shop_currency(monster_shop, item_shop, coin):
   print("Irasshaimase! Selamat datang di SHOP!!")
-  aksi = input(">>> Pilih aksi (lihat/beli/keluar): ")
-  if (aksi == "lihat"):
-    lihat = input(">>> Mau lihat apa? (monster/potion): ")
-    if (lihat == "monster"):
-      lihat_shop_monster()
-    elif (lihat == "potion"): # lihat potion
-      lihat_shop_potion()
-    else: print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")
-  elif (aksi == "beli"):
-    beli_shop()
+  keluar = False
+  while not keluar:
+    aksi = input(">>> Pilih aksi (lihat/beli/keluar): ")
+    if (aksi == "lihat"):
+      lihat = input(">>> Mau lihat apa? (monster/potion): ")
+      if (lihat == "monster"):
+        lihat_shop_monster()
+      elif (lihat == "potion"):
+        lihat_shop_potion()
+      else: print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")
+    elif (aksi == "beli"):
+      beli_shop()
+    elif (aksi == "keluar"):
+      print("Mr. Yanto bilang makasih, belanja lagi ya nanti :)")
+      keluar = True
+    else:
+      print("Aksi tidak valid. Silakan pilih aksi lainnya.")

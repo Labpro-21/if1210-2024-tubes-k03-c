@@ -1,5 +1,4 @@
 type;stock;price
-strength;10;50
-resilience;5;20
-healing;5;100
-
+strength;30;50
+resilience;85;20
+healing;40;100
