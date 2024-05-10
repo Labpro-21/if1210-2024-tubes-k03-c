@@ -1,12 +1,32 @@
+import time
+
+def RNG(x,y):
+    # Set konstanta
+    a = 22695477
+    c = 1
+    m = 2 ** 31
+    seed = int(time.time_ns())
+
+    random = 0
+    if x == 1 :
+        for i in range (165*145):
+            random += (a *i* seed + c) % m
+        hasil = (random % y) + x
+    elif x == 0 :
+        for i in range (165*145):
+            random += (a *i* seed + c) % m
+        hasil = (random % y+1) + x
+    return hasil
+
+
 def custom_split(text, delimiter):
   result = []
   start = 0
-  for i in range(len(text)):  # Iterate through character indices
+  for i in range(len(text)):
     char = text[i]
     if char == delimiter:
       result.append(text[start:i])
       start = i + 1
-  # Add the last substring after the last delimiter
   result.append(text[start:])
   return result
 
@@ -15,12 +35,10 @@ def tulis_csv(filename, data):
   with open(filename, 'w', newline='') as file:
     for row in data:
       csv_row = ""
-      # iterasi/loop tiap elemen tiap baris
       for index, element in enumerate(row):
                 csv_row += str(element)
                 if index < len(row) - 1:
                     csv_row += ';'
-      # tambah newline
       csv_row += '\n'
       file.write(csv_row)
 
@@ -29,10 +47,8 @@ def baca_csv(filename):
     data = []
     with open(filename, 'r') as file:
         for line in file:
-            # hapus newline character
             if line[len(line)-1] == '\n':
                 line = line[:len(line)-1]
-            # split dengan ;
             row = custom_split(line, ";")
             data.append(row)
     return data
@@ -542,64 +558,54 @@ def laboratory():
     print("4. Level 4 -> Level 5: 1000 OC")
     print()
     upgrade_monster_no = input(">>> Pilih monster: ")
+    upgrade_monster_no = int(upgrade_monster_no)
+    if upgrade_monster_no in range(1, len(monster_invent_id) + 1):
+      upgrade_monster_no = monster_invent_id[upgrade_monster_no - 1]
 
-    if upgrade_monster_no.isdigit():  # Input validation
-      upgrade_monster_no = int(upgrade_monster_no)
-      if upgrade_monster_no in range(1, len(monster_invent_id) + 1):
-        upgrade_monster_no = monster_invent_id[upgrade_monster_no - 1]
+      for monster_entry in monster_inventory[1:]:
+        if int(monster_entry[0]) == int(user_id) and upgrade_monster_no == monster_entry[1]:
+          monster_level = int(monster_entry[2])
+          monster_name = ""
+          for monster in monster_data[1:]:
+            if monster[0] == upgrade_monster_no:
+              monster_name = monster[1]
+              break
+          
+          if monster_level == 5:
+            print("Maaf, monster yang Anda pilih sudah memiliki level maksimum")
+          else:
+            upgrade_price = {1: 300, 2: 500, 3: 800, 4: 1000}
+            next_level = monster_level + 1
+            print(f"{monster_name} akan di-upgrade ke level {next_level}")
+            print(f"Harga untuk melakukan upgrade {monster_name} adalah {upgrade_price[monster_level]} OC")
+            print(">>> Lanjutkan upgrade (Y/N): ", end="")
+            upgrade_confirm = input().upper()
 
-        for monster_entry in monster_inventory[1:]:
-          if int(monster_entry[0]) == int(user_id) and upgrade_monster_no == monster_entry[1]:
-            monster_level = int(monster_entry[2])
-            monster_name = ""
-            for monster in monster_data[1:]:
-              if monster[0] == upgrade_monster_no:
-                monster_name = monster[1]
-                break
-
-            if monster_level == 5:
-              print("Maaf, monster yang Anda pilih sudah memiliki level maksimum")
-            else:
-              upgrade_price = {1: 300, 2: 500, 3: 800, 4: 1000}
-              next_level = monster_level + 1
-              print(f"{monster_name} akan di-upgrade ke level {next_level}")
-              print(f"Harga untuk melakukan upgrade {monster_name} adalah {upgrade_price[monster_level]} OC")
-              print(">>> Lanjutkan upgrade (Y/N): ", end="")
-              upgrade_confirm = input().upper()
-
-              if upgrade_confirm == "Y":
+            if upgrade_confirm == "Y":
               # Check if user has sufficient OC for the upgrade
-                if upgrade_price[monster_level] <= user_oc:
-                  user_oc -= upgrade_price[monster_level]
-                  monster_level += 1
-                  print(f"Selamat, {monster_name} berhasil di-upgrade ke level {monster_level}!")
+              if upgrade_price[monster_level] <= user_oc:
+                user_oc -= upgrade_price[monster_level]
+                monster_level += 1
+                print(f"Selamat, {monster_name} berhasil di-upgrade ke level {monster_level}!")
 
-                  for user_entry in user_data[1:]:
-                    if user_entry[0] == user_id:
-                      user_entry[4] = str(user_oc)  
-                      break
-
-                  for monster_entry in monster_inventory[1:]:
-                    if int(monster_entry[0]) == int(user_id) and int(monster_entry[1]) == int(upgrade_monster_no):
-                      monster_entry[2] = str(monster_level)  
-                      break
+                for monster_entry in monster_inventory[1:]:
+                  if int(monster_entry[0]) == int(user_id) and int(monster_entry[1]) == int(upgrade_monster_no):
+                    monster_entry[2] = str(monster_level)  
+                    break
                   """
                   print(monster_inventory)
                   [['user_id', 'monster_id', 'level'], ['2', '1', '1'], ['3', '2', '3'], ['3', '3', '1'], ['4', '4', '1'], ['5', '5', '5']]
                   """
-                  tulis_csv("user.csv", user_data)
-                  tulis_csv("monster_inventory.csv", monster_inventory)
+                tulis_csv("user.csv", user_data)
+                tulis_csv("monster_inventory.csv", monster_inventory)
 
-                else:
-                  print("Maaf, OC Anda tidak mencukupi untuk melakukan upgrade.")
               else:
-                print("Upgrade dibatalkan.")
-            break
-        else:
-          print("ID monster tidak valid.")
-    else:
-      print("Input harus berupa angka.")
-
+                print("Maaf, OC Anda tidak mencukupi untuk melakukan upgrade.")
+            else:
+              print("Upgrade dibatalkan.")
+          break
+      else:
+        print("ID monster tidak valid.")
 
 def shop_management():
   print("Irasshaimase! Selamat datang kembali, Mr. Yanto!")
@@ -644,15 +650,121 @@ def monster_management():
     else:
       print("Aksi tidak valid. Silakan pilih aksi lainnya.")
 
+
+def jackpot():
+  user_data = baca_csv("user.csv")
+
+  username_login = "Agen_P"
+
+  # Mencari ID agent yang sedang login
+  user_id = None
+  user_oc = None
+  for user_entry in user_data[1:]:
+    if user_entry[1] == username_login:
+      user_id = user_entry[0]
+      user_oc = int(user_entry[4])
+      break
+
+  if user_id:
+    monster_inventory = baca_csv("monster_inventory.csv")
+    monster_data = baca_csv("monster.csv")
+  
+  print("""
+  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
+  $$$$$$$$$$$$$  Apakah Anda siap untuk menguji keberuntungan? $$$$$$$$$$$$$
+  $$$$$$$$$$$$$     Menangkan Mewtwo dengan 400 OC saja !!!  $$$$$$$$$$$$$$$
+  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+  """)
+
+  item_jackpot = ["Topi", "Pedang", "Koin", "Potion", "Monster"]
+  print()
+  print("==== DAFTAR ITEM ====")
+  print("1. Topi: 50 OC")
+  print("2. Pedang: 100 OC")
+  print("3. Koin: 200 OC")
+  print("4. Potion: 300 OC")
+  print("5. Monster: 500 OC")
+  print()
+  print(">>> Mulai bermain (Y/N): ", end="")
+  play_confirm = input().upper()
+
+  if play_confirm == "Y":
+    if 400 <= user_oc:
+      user_oc -= 400
+      all_item = []
+      item1 = item_jackpot[RNG(0,4)]
+      item2 = item_jackpot[RNG(0,4)]
+      item3 = item_jackpot[RNG(0,4)]
+
+      all_item.append(item1)
+      all_item.append(item2)
+      all_item.append(item3)
+
+      print("Anda Mendapatkan: ")
+      print(f"""
+      $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+      $$$$$$$$$$$$$$$$$     {item1}    |    {item2}    |    {item3}    $$$$$$$$$$$$$$$$$
+      $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+      """)
+
+      if item1 == item2 and item1 == item3:
+        monster_random_id = RNG(1, len(monster_data)-1)
+        reward_monster = monster_data[monster_random_id][1]
+
+        for monster_entry in monster_inventory[1:]:
+          if int(monster_entry[0]) == int(user_id) and monster_entry[1] == id_monster:
+            print(f"Monster {reward_monster} sudah ada dalam inventory-mu!")
+            return
+
+        print(f"JACKPOT!!! Selamat, Anda mendapatkan monster {reward_monster}.")
+        print("Monster telah ditambahkan ke inventory Anda.")
+        monster_inventory.append([user_id, id_monster, 1])
+
+      else:
+        reward = 0
+        for item in all_item:
+          if item == "Topi":
+            reward += 50
+          elif item == "Pedang":
+            reward += 100
+          elif item == "Koin":
+            reward += 200
+          elif item == "Potion":
+            reward += 300
+          elif item == "Monster":
+            reward += 500
+        print(f"{reward} OC telah ditambahkan ke akun Anda! ")
+        
+        for user_entry in user_data[1:]:
+          if user_entry[1] == username_login:
+            user_entry[4] = str(int(user_entry[4]) + reward)
+
+
+      tulis_csv("user.csv", user_data)
+      tulis_csv("monster_inventory.csv", monster_inventory)
+    else:
+      print("Maaf, anda tidak memiliki cukup OC untuk bermain JACKPOT.")
+      return
+
+  else:
+    print("Jackpot dibatalkan.")
+  
+
+
 menu = input("")
 if (menu == "SHOP"):
   print(">>> SHOP")
   print()
-  shop_currency()
+  shop_management()
 
-elif (menu == "LABORATORY"):
+elif (menu.upper() == "LABORATORY"):
   laboratory()
 
-elif (menu == "MONSTER"):
+elif (menu.upper() == "MONSTER"):
   print(">>> MONSTER")
   monster_management()
+
+elif (menu.upper() == "JACKPOT"):
+  print(">>> JACKPOT")
+  jackpot()
