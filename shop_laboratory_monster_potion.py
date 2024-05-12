@@ -2,9 +2,9 @@ import time
 
 def RNG(x, y):
     # Set konstanta
-    a = 165
-    c = 16522145
-    m = 45 * 4 - 9
+    a = 22695477
+    c = 1
+    m = 2 ** 31 
     seed = int(time.time_ns())
 
     random = 0
