@@ -1,21 +1,21 @@
 import time
 
-def RNG(x,y):
+def RNG(x, y):
     # Set konstanta
-    a = 22695477
-    c = 1
-    m = 2 ** 31
+    a = 165
+    c = 16522145
+    m = 45 * 4 - 9
     seed = int(time.time_ns())
 
     random = 0
-    if x == 1 :
-        for i in range (165*145):
-            random += (a *i* seed + c) % m
-        hasil = (random % y) + x
-    elif x == 0 :
-        for i in range (165*145):
-            random += (a *i* seed + c) % m
-        hasil = (random % y+1) + x
+    if x == 1:
+        for i in range(165 * 145):
+            random = (a * i * seed + c) % m  # Implementasi LCG
+        hasil = (random % (y - x + 1)) + x  # Supaya output ada di rentang nilai x sampai y
+    elif x == 0:
+        for i in range(165 * 145):
+            random = (a * i * seed + c) % m  # Implementasi LCG
+        hasil = (random % (y - x + 1)) + x  # Supaya output ada di rentang nilai x sampai y
     return hasil
 
 
@@ -504,10 +504,10 @@ def shop_currency():
       print("Aksi tidak valid. Silakan pilih aksi lainnya.")
 
 
-def laboratory():
+def laboratory(username):
   user_data = baca_csv("user.csv")
 
-  username_login = "Agen_P"
+  username_login = username
 
   # Mencari ID agent yang sedang login
   user_id = None
@@ -676,7 +676,7 @@ def jackpot():
   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
   """)
 
-  item_jackpot = ["Topi", "Pedang", "Koin", "Potion", "Monster"]
+  item_jackpot = ["Item", "Topi", "Pedang", "Koin", "Potion", "Monster"]
   print()
   print("==== DAFTAR ITEM ====")
   print("1. Topi: 50 OC")
@@ -692,9 +692,9 @@ def jackpot():
     if 400 <= user_oc:
       user_oc -= 400
       all_item = []
-      item1 = item_jackpot[RNG(0,4)]
-      item2 = item_jackpot[RNG(0,4)]
-      item3 = item_jackpot[RNG(0,4)]
+      item1 = item_jackpot[RNG(1,5)]
+      item2 = item_jackpot[RNG(1,5)]
+      item3 = item_jackpot[RNG(1,5)]
 
       all_item.append(item1)
       all_item.append(item2)
@@ -713,13 +713,25 @@ def jackpot():
         reward_monster = monster_data[monster_random_id][1]
 
         for monster_entry in monster_inventory[1:]:
-          if int(monster_entry[0]) == int(user_id) and monster_entry[1] == id_monster:
-            print(f"Monster {reward_monster} sudah ada dalam inventory-mu!")
-            return
+          if int(monster_entry[0]) == int(user_id) and monster_entry[1] == monster_random_id:
+            reward = 0
+            for item in all_item:
+              if item == "Topi":
+                reward += 50
+              elif item == "Pedang":
+                reward += 100
+              elif item == "Koin":
+                reward += 200
+              elif item == "Potion":
+                reward += 300
+              elif item == "Monster":
+                reward += 500
+            print(f"{reward} OC telah ditambahkan ke akun Anda! ")
+          
 
         print(f"JACKPOT!!! Selamat, Anda mendapatkan monster {reward_monster}.")
         print("Monster telah ditambahkan ke inventory Anda.")
-        monster_inventory.append([user_id, id_monster, 1])
+        monster_inventory.append([user_id, monster_random_id, 1])
 
       else:
         reward = 0
