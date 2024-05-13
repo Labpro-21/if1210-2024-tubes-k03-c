@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 user_id;type;quantity
 2;strength;5
 2;resilience;3
 3;resilience;7
 4;healing;3
 5;strength;20
+=======
+user_id;type;quantity
+2;strength;5
+2;resilience;3
+3;resilience;7
+4;healing;3
+5;strength;20
+>>>>>>> 4b36beda6a826a2e5ce967108d9c3cc9683c362e
