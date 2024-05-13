@@ -1,7 +1,12 @@
-def laboratory():
-  user_data = baca_csv("user.csv")
+import sys
+sys.path.append('src')
 
-  username_login = "Agen_P"
+import operateCSV
+
+def laboratory(username):
+  user_data = operateCSV.baca_csv("user.csv")
+
+  username_login = username
 
   # Mencari ID agent yang sedang login
   user_id = None
@@ -13,8 +18,8 @@ def laboratory():
       break
 
   if user_id:
-    monster_inventory = baca_csv("monster_inventory.csv")
-    monster_data = baca_csv("monster.csv")
+    monster_inventory = operateCSV.baca_csv("monster_inventory.csv")
+    monster_data = operateCSV.baca_csv("monster.csv")
 
     print(">>> LABORATORY")
     print()
@@ -97,8 +102,8 @@ def laboratory():
                   print(monster_inventory)
                   [['user_id', 'monster_id', 'level'], ['2', '1', '1'], ['3', '2', '3'], ['3', '3', '1'], ['4', '4', '1'], ['5', '5', '5']]
                   """
-                  tulis_csv("user.csv", user_data)
-                  tulis_csv("monster_inventory.csv", monster_inventory)
+                  operateCSV.tulis_csv("user.csv", user_data)
+                  operateCSV.tulis_csv("monster_inventory.csv", monster_inventory)
 
                 else:
                   print("Maaf, OC Anda tidak mencukupi untuk melakukan upgrade.")

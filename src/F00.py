@@ -18,4 +18,3 @@ def RNG(x, y):
         hasil = (random % (y - x + 1)) + x  # Supaya output ada di rentang nilai x sampai y
     return hasil
 
-print(RNG(0,4), RNG(0,4), RNG(0,4))

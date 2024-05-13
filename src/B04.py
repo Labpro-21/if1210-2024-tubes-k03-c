@@ -1,11 +1,12 @@
 import sys
 sys.path.append('src')
-import F00
 
-def jackpot():
-  user_data = baca_csv("user.csv")
+import F00, operateCSV
 
-  username_login = "Agen_P"
+def jackpot(username):
+  user_data = operateCSV.baca_csv("user.csv")
+
+  username_login = username
 
   # Mencari ID agent yang sedang login
   user_id = None
@@ -17,8 +18,8 @@ def jackpot():
       break
 
   if user_id:
-    monster_inventory = baca_csv("monster_inventory.csv")
-    monster_data = baca_csv("monster.csv")
+    monster_inventory = operateCSV.baca_csv("monster_inventory.csv")
+    monster_data = operateCSV.baca_csv("monster.csv")
   
   print("""
   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
@@ -66,11 +67,23 @@ def jackpot():
         for monster_entry in monster_inventory[1:]:
           if int(monster_entry[0]) == int(user_id) and monster_entry[1] == id_monster:
             print(f"Monster {reward_monster} sudah ada dalam inventory-mu!")
-            return
-
-        print(f"JACKPOT!!! Selamat, Anda mendapatkan monster {reward_monster}.")
-        print("Monster telah ditambahkan ke inventory Anda.")
-        monster_inventory.append([user_id, id_monster, 1])
+            reward = 0
+            for item in all_item:
+              if item == "Topi":
+                reward += 50
+              elif item == "Pedang":
+                reward += 100
+              elif item == "Koin":
+                reward += 200
+              elif item == "Potion":
+                reward += 300
+              elif item == "Monster":
+                reward += 500
+            print(f"Hadiah akan diubah menjadi {reward} OC.")
+          else:
+            print(f"JACKPOT!!! Selamat, Anda mendapatkan monster {reward_monster}.")
+            print("Monster telah ditambahkan ke inventory Anda.")
+            monster_inventory.append([user_id, id_monster, 1])
 
       else:
         reward = 0
@@ -92,13 +105,11 @@ def jackpot():
             user_entry[4] = str(int(user_entry[4]) + reward)
 
 
-      tulis_csv("user.csv", user_data)
-      tulis_csv("monster_inventory.csv", monster_inventory)
+      operateCSV.tulis_csv("user.csv", user_data)
+      operateCSV.tulis_csv("monster_inventory.csv", monster_inventory)
     else:
       print("Maaf, anda tidak memiliki cukup OC untuk bermain JACKPOT.")
       return
 
   else:
     print("Jackpot dibatalkan.")
-  
-jackpot()
