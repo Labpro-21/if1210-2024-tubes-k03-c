@@ -1,4 +1,4 @@
-def logout(user):
+def logout(user, role, coin):
   print(">>> LOGOUT")
   if user:
     username = ""

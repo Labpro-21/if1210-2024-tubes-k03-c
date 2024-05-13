@@ -17,4 +17,3 @@ def RNG(x, y):
             random = (a * i * seed + c) % m  # Implementasi LCG
         hasil = (random % (y - x + 1)) + x  # Supaya output ada di rentang nilai x sampai y
     return hasil
-

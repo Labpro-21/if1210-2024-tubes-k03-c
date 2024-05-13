@@ -3,8 +3,8 @@ sys.path.append('src')
 
 import operateCSV
 
-def laboratory(username):
-  user_data = operateCSV.baca_csv("user.csv")
+def laboratory(username, role, coin):
+  user_data = operateCSV.baca_csv(r"data\user.csv")
 
   username_login = username
 
@@ -18,8 +18,8 @@ def laboratory(username):
       break
 
   if user_id:
-    monster_inventory = operateCSV.baca_csv("monster_inventory.csv")
-    monster_data = operateCSV.baca_csv("monster.csv")
+    monster_inventory = operateCSV.baca_csv(r"data\monster_inventory.csv")
+    monster_data = operateCSV.baca_csv(r"data\monster.csv")
 
     print(">>> LABORATORY")
     print()
@@ -86,6 +86,7 @@ def laboratory(username):
               # Check if user has sufficient OC for the upgrade
                 if upgrade_price[monster_level] <= user_oc:
                   user_oc -= upgrade_price[monster_level]
+                  coin -= upgrade_price[monster_level]
                   monster_level += 1
                   print(f"Selamat, {monster_name} berhasil di-upgrade ke level {monster_level}!")
 
@@ -102,8 +103,8 @@ def laboratory(username):
                   print(monster_inventory)
                   [['user_id', 'monster_id', 'level'], ['2', '1', '1'], ['3', '2', '3'], ['3', '3', '1'], ['4', '4', '1'], ['5', '5', '5']]
                   """
-                  operateCSV.tulis_csv("user.csv", user_data)
-                  operateCSV.tulis_csv("monster_inventory.csv", monster_inventory)
+                  operateCSV.tulis_csv(r"data\user.csv", user_data)
+                  operateCSV.tulis_csv(r"data\monster_inventory.csv", monster_inventory)
 
                 else:
                   print("Maaf, OC Anda tidak mencukupi untuk melakukan upgrade.")
@@ -114,3 +115,5 @@ def laboratory(username):
           print("ID monster tidak valid.")
     else:
       print("Input harus berupa angka.")
+
+  return username, role, coin
