@@ -279,3 +279,5 @@ def shop_management():
       keluar = True
     else: # input diluar yang diminta
       print("Aksi tidak valid. Silakan pilih aksi lainnya.")
+
+  return username, role, coin, monster_shop, item_shop

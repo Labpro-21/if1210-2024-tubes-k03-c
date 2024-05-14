@@ -11,7 +11,6 @@ monster_inventory = operateCSV.baca_csv(r'data\monster_inventory.csv')
 monster_shop = operateCSV.baca_csv(r'data\monster_shop.csv')
 
 (username, user_id, role, coin) = ('', '', '', 0)
-monster_types, user_monster, user_potion = [], [], {"ATK":0,"DEF":0,"Heal":0}
 
 berhenti = False
 while not(berhenti):
@@ -27,9 +26,9 @@ while not(berhenti):
     print()
     if username != '':
       if role == "admin":
-        F12.shop_management()
+        (username, role, coin, monster_shop, item_shop) = (F12.shop_management(username, role, coin))
       else: # role == "agent"
-        (username, role, coin) = (F10.shop_currency(username, role, coin))
+        (username, role, coin, user_data, monster_inventory, monster_shop, item_inventory, item_shop) = (F10.shop_currency(username, role, coin))
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
   elif (menu == "LABORATORY"):
@@ -43,14 +42,14 @@ while not(berhenti):
     if username != '':
       if role == "admin":
         print(">>> MONSTER")
-        F13.monster_management(username)
+        (username, role, coin, monster_data) = (F13.monster_management(username, role, coin))
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
   elif (menu == "JACKPOT"):
     if username != '':
       if role == "admin":
         print(">>> JACKPOT")
-        coin, user_monster_inventory = B04.jackpot(username, coin)
+        coin, monster_inventory = B04.jackpot(username, coin)
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
     

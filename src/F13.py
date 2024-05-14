@@ -90,7 +90,7 @@ def tambah_monster():
     print("Monster gagal ditambahkan!") 
 
 
-def monster_management(username):
+def monster_management(username, role, coin):
   print("SELAMAT DATANG DI DATABASE PARA MONSTER !!!")
   print("1. Tampilkan semua Monster")
   print("2. Tambah Monster baru")
@@ -107,3 +107,5 @@ def monster_management(username):
       keluar = True
     else:
       print("Aksi tidak valid. Silakan pilih aksi lainnya.")
+
+  return username, role, coin, monster_data

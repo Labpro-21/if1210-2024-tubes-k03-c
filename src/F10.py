@@ -181,4 +181,4 @@ def shop_currency(username, role, coin):
     else:
       print("Aksi tidak valid. Silakan pilih aksi lainnya.")
     
-  return username, role, coin
+  return username, role, coin, user_data, monster_inventory, monster_shop, item_inventory, item_shop
