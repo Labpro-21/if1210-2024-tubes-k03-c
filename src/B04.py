@@ -105,8 +105,10 @@ def jackpot(username, coin):
             user_entry[4] = str(int(user_entry[4]) + reward)
 
 
-      operateCSV.tulis_csv(r"data\user.csv", user_data)
-      operateCSV.tulis_csv(r"data\monster_inventory.csv", monster_inventory)
+      return coin, monster_inventory
+      # operateCSV.tulis_csv(r"data\user.csv", user_data)
+      # operateCSV.tulis_csv(r"data\monster_inventory.csv", monster_inventory)
+      
     else:
       print("Maaf, anda tidak memiliki cukup OC untuk bermain JACKPOT.")
       return

@@ -60,8 +60,6 @@ def register(user, user_data):
       merge_user.append(row) 
         
     merge_user.append(new_user)
-    operateCSV.tulis_csv(r'data\user.csv', merge_user)
-    monster_data = operateCSV.baca_csv(r'data\monster.csv')
 
     print("Silahkan pilih salah satu monster sebagai monster awalmu:")
     for i in range(1, 6):
@@ -81,8 +79,9 @@ def register(user, user_data):
         print("Monster tidak ditemukan.")
     else:
       print("Pilihan monster tidak valid.")
-  
 
+  # operateCSV.tulis_csv(r'data\user.csv', merge_user)
+  # monster_data = operateCSV.baca_csv(r'data\monster.csv')
   return username, monster_id
 
 # register("", operateCSV.baca_csv(r'data\user.csv'))

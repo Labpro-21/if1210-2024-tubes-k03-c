@@ -84,7 +84,8 @@ def tambah_monster():
     print("Monster baru telah ditambahkan")
     monster_data.append([monster_id_baru,monster_name, atk_power, def_power, hp])
     # Menulis kembali data ke dalam file "monster.csv"
-    operateCSV.tulis_csv(r"data\monster.csv", monster_data)
+    return monster_data
+    # operateCSV.tulis_csv(r"data\monster.csv", monster_data)
   else: # hapus_confirm == n
     print("Monster gagal ditambahkan!") 
 
@@ -100,7 +101,7 @@ def monster_management(username):
     if (aksi == "1"):
       lihat_monster()
     elif (aksi == "2"):
-      tambah_monster()
+      monster_data = tambah_monster()
     elif (aksi == "3"):
       print("Dadah, sampai jumpa lagi!")
       keluar = True

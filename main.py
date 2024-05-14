@@ -35,7 +35,7 @@ while not(berhenti):
   elif (menu == "LABORATORY"):
     if username != '':
       if role == "agent":
-        (username, role, coin) = (F11.laboratory(username, role, coin))
+        (username, role, coin, user_data, monster_inventory) = (F11.laboratory(username, role, coin))
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
 
@@ -50,7 +50,7 @@ while not(berhenti):
     if username != '':
       if role == "admin":
         print(">>> JACKPOT")
-        B04.jackpot(username)
+        coin, user_monster_inventory = B04.jackpot(username, coin)
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
     

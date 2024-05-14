@@ -44,7 +44,7 @@ def lihat_shop_potion():
 
 
 # Agent
-def beli_shop(username, coin):
+def beli_shop(beli, username, coin):
   user_data = operateCSV.baca_csv(r"data\user.csv")
 
   username_login = username
@@ -59,7 +59,6 @@ def beli_shop(username, coin):
       break
 
   print("Jumlah O.W.C.A. Coin-mu sekarang ", coin, ".")
-  beli = input(">>> Mau beli apa? (monster/potion): ")
   if (beli == "monster"):
     monster_inventory = operateCSV.baca_csv(r"data\monster_inventory.csv")
     monster_data = operateCSV.baca_csv(r"data\monster.csv")
@@ -99,9 +98,10 @@ def beli_shop(username, coin):
 
       coin -= int(monster_shop_data[index][1])
 
-      operateCSV.tulis_csv(r"data\monster_inventory.csv", monster_inventory)
-      operateCSV.tulis_csv(r"data\monster_shop.csv", monster_shop_data)
-      operateCSV.tulis_csv(r"data\user.csv", user_data)
+      return user_data, monster_inventory, monster_shop_data, coin
+      # operateCSV.tulis_csv(r"data\monster_inventory.csv", monster_inventory)
+      # operateCSV.tulis_csv(r"data\monster_shop.csv", monster_shop_data)
+      # operateCSV.tulis_csv(r"data\user.csv", user_data)
 
     else:
       print("Stok habis.")
@@ -149,10 +149,10 @@ def beli_shop(username, coin):
 
       coin -= total
 
-      operateCSV.tulis_csv(r"data\item_inventory.csv", item_inventory)
-      operateCSV.tulis_csv(r"data\item_shop.csv", item_shop)
-      operateCSV.tulis_csv(r"data\user.csv", user_data)
-
+      return  user_data, item_inventory, item_shop, coin
+      # operateCSV.tulis_csv(r"data\item_inventory.csv", item_inventory)
+      # operateCSV.tulis_csv(r"data\item_shop.csv", item_shop)
+      # operateCSV.tulis_csv(r"data\user.csv", user_data)
 
 
 def shop_currency(username, role, coin):
@@ -168,7 +168,13 @@ def shop_currency(username, role, coin):
         lihat_shop_potion()
       else: print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")
     elif (aksi == "beli"):
-      beli_shop(username, coin)
+      beli = input(">>> Mau beli apa? (monster/potion): ")
+      if beli.lower() == "monster":
+        user_data, monster_inventory, monster_shop, coin = beli_shop(beli, username, coin)
+      elif beli.lower() == "potion":
+        user_data, item_inventory, item_shop, coin = beli_shop(beli, username, coin)
+      else:
+        print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")
     elif (aksi == "keluar"):
       print("Mr. Yanto bilang makasih, belanja lagi ya nanti :)")
       keluar = True

@@ -103,8 +103,9 @@ def laboratory(username, role, coin):
                   print(monster_inventory)
                   [['user_id', 'monster_id', 'level'], ['2', '1', '1'], ['3', '2', '3'], ['3', '3', '1'], ['4', '4', '1'], ['5', '5', '5']]
                   """
-                  operateCSV.tulis_csv(r"data\user.csv", user_data)
-                  operateCSV.tulis_csv(r"data\monster_inventory.csv", monster_inventory)
+
+                  # operateCSV.tulis_csv(r"data\user.csv", user_data)
+                  # operateCSV.tulis_csv(r"data\monster_inventory.csv", monster_inventory)
 
                 else:
                   print("Maaf, OC Anda tidak mencukupi untuk melakukan upgrade.")
@@ -116,4 +117,4 @@ def laboratory(username, role, coin):
     else:
       print("Input harus berupa angka.")
 
-  return username, role, coin
+  return username, role, coin, user_data, monster_inventory
