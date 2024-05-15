@@ -1,4 +1,4 @@
-import operateCSV, F00, math, testloader, random
+import operateCSV, F00, math, testloader
 
 #constants
 u_id=0
@@ -56,11 +56,11 @@ def monsterlvRNG() -> int:
 
 #menentukan rng attack
 def attackRNG(low : int,high : int) -> int:
-    return random.randint(low,high)
+    return F00.RNG(low,high)
 
 #menentukan rng OC
 def ocRNG() -> int:
-    return random.randint(5,10)
+    return F00.RNG(5,500)
 
 #menampilkan musuh
 def showMenu(loaded_stat : list, list_monster : list, enemy_rng : int, level : int):
@@ -194,10 +194,10 @@ def battle(username : str, role : str, coin : int, userdat : list) -> int:
     userid=testloader.get_uid(userdat,username)
     #load datas
     player_monster_arr=(testloader.monster_inventory(testloader.monster,testloader.filter_monster(testloader.monstinv,userid)))
-    player_inv_arr=(testloader.filter_item(testloader.storage,int(userid)))
+    player_inv_arr=(testloader.filter_item(testloader.storage,3))
     #initial turn
     turn=1
-    #fight = true
+    #fight = trues
     fight=True
     #win = false
     win=False
@@ -247,3 +247,4 @@ def battle(username : str, role : str, coin : int, userdat : list) -> int:
     else:
         print('Yah Kalah')
 
+battle('Agen_P','agent',0,testloader.userdat)

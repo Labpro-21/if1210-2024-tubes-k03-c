@@ -18,6 +18,7 @@ m_lv=1
 monster=operateCSV.baca_csv(r'data\monster.csv')
 monstinv=operateCSV.baca_csv(r'data\monster_inventory.csv')
 storage=operateCSV.baca_csv(r'data\item_inventory.csv')
+userdat=operateCSV.baca_csv(r'data\user.csv')
 
 user_monster=[['monster_id','monster_level']]
 user_inventory=[['type','quantity']]
@@ -48,9 +49,8 @@ def monster_inventory(monster_list : list,user_monster : list) -> list:
 def get_uid(user_data : list,username: str) -> int:
     for user in user_data:
         if user[u_n]==username:
-            return user[u_id]
-        else:
-            return ''
+            break
+    return user[0]
 #formatnya
 #[['type', 'atk', 'def', 'hp', 'lv'], ['Pikachow', '125', '10', '600', '1'], ['Bulbu', '50', '50', '1200', '4'], ['Zeze', '300', '10', '100', 
 #'1'], ['Chacha', '80', '30', '700', '2'], ['Bulbasaur', '90', '20', '700', '1'], ['Mio', '9999', '9999', '9999', '5']]
