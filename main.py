@@ -1,7 +1,7 @@
 import sys
 sys.path.append('src')
-import F01, F10, F11, F12, F13
-import operateCSV
+import F01, F08, F10, F11, F12, F13
+import operateCSV, testloader
 
 user_data = operateCSV.baca_csv(r"data\user.csv")
 monster_data = operateCSV.baca_csv(r'data\monster.csv')
@@ -35,6 +35,13 @@ while not(berhenti):
     if username != '':
       if role == "agent":
         (username, role, coin, user_data, monster_inventory) = (F11.laboratory(username, role, coin))
+    else:
+      print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
+
+  elif (menu == "BATTLE"):
+    if username != '':
+      if role == "agent":
+        (username, role, coin) = (F08.battle(username, role, coin))
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
 

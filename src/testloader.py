@@ -2,7 +2,10 @@ import operateCSV
 
 #constants
 u_id=0
+u_n=1
 u_m_id=1
+u_i_type=0
+u_i_q=1
 u_m_lv=2
 
 m_id=0
@@ -13,10 +16,11 @@ m_hp=4
 m_lv=1
 
 monster=operateCSV.baca_csv(r'data\monster.csv')
-
 monstinv=operateCSV.baca_csv(r'data\monster_inventory.csv')
+storage=operateCSV.baca_csv(r'data\item_inventory.csv')
 
 user_monster=[['monster_id','monster_level']]
+user_inventory=[['type','quantity']]
 monster_invent=[['type','atk','def','hp','lv']]
 
 #filter monster berdasarkan data user
@@ -26,6 +30,14 @@ def filter_monster(monsterinv_list : list,user : int) -> list:
             user_monster.append([data[u_m_id],data[u_m_lv]])
     return user_monster
 
+#filter item berdasarkan data user
+def filter_item(storage : list, user : int) -> list:
+    for item in storage:
+        if storage[u_id]==user:
+            user_inventory.append([item[u_i_type],item[u_i_q]])
+    return user_inventory
+            
+#mengisi monster inventory setelah di filter
 def monster_inventory(monster_list : list,user_monster : list) -> list:
     for monster in monster_list: 
        for usermon in user_monster:
@@ -33,6 +45,12 @@ def monster_inventory(monster_list : list,user_monster : list) -> list:
                 monster_invent.append([monster[m_type],monster[m_atk],monster[m_gua],monster[m_hp],usermon[m_lv]])
     return monster_invent
 
-
-user=(input('uid: '))
-print(monster_inventory(monster,filter_monster(monstinv,user)))
+def get_uid(user_data : list,username: str) -> int:
+    for user in user_data:
+        if user[u_n]==username:
+            return user[u_id]
+        else:
+            return ''
+#formatnya
+#[['type', 'atk', 'def', 'hp', 'lv'], ['Pikachow', '125', '10', '600', '1'], ['Bulbu', '50', '50', '1200', '4'], ['Zeze', '300', '10', '100', 
+#'1'], ['Chacha', '80', '30', '700', '2'], ['Bulbasaur', '90', '20', '700', '1'], ['Mio', '9999', '9999', '9999', '5']]
