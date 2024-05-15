@@ -1,6 +1,17 @@
 import glbfunc
-import random
-import math
+import operateCSV, F00, math
+
+#constants
+u_id=0
+u_m_id=1
+u_m_lv=2
+
+m_id=0
+m_type=1
+m_atk=2
+m_gua=3
+m_hp=4
+m_lv=1
 
 monster_arr=glbfunc.csv_reader('monster.csv')
 monsterl=glbfunc.csv_parser(monster_arr,';',6,5)
@@ -8,20 +19,17 @@ monsterl=glbfunc.csv_parser(monster_arr,';',6,5)
 item_arr=glbfunc.csv_reader('item_inventory.csv')
 iteml=glbfunc.csv_parser(item_arr,';',6,3)
 
-def hploader(monsterl,p_mon,e_mon):
-    loadedhp=[['enemy hp','player hp'],[int(monsterl[e_mon][4]),int(monsterl[p_mon][4])]]
+def hploader(list_monster : list,player_monster : int,enemy_monster : int) -> int:
+    loadedhp=[['enemy hp','player hp'],[int(list_monster[enemy_monster][4]),int(monsterl[player_monster][4])]]
     return loadedhp
 
 def turnCount(cond,turn):
-    #kamus lokal
-    #cond : bool
-    #turn : int
     if cond:
         turn+=1
     return turn
 
-def monsterRNG():
-    return random.randint(1,5)
+def monsterRNG(): #menentukan rng monster lawan
+    return F00.RNG(1,10)
 
 def showMenu(monsta,e_num):
     #kamus lokal
