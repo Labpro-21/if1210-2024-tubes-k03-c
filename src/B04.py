@@ -3,8 +3,8 @@ sys.path.append('src')
 
 import F00, operateCSV
 
-def jackpot(username):
-  user_data = operateCSV.baca_csv("user.csv")
+def jackpot(username, coin):
+  user_data = operateCSV.baca_csv(r"data\user.csv")
 
   username_login = username
 
@@ -18,8 +18,8 @@ def jackpot(username):
       break
 
   if user_id:
-    monster_inventory = operateCSV.baca_csv("monster_inventory.csv")
-    monster_data = operateCSV.baca_csv("monster.csv")
+    monster_inventory = operateCSV.baca_csv(r"data\monster_inventory.csv")
+    monster_data = operateCSV.baca_csv(r"data\monster.csv")
   
   print("""
   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
@@ -105,8 +105,10 @@ def jackpot(username):
             user_entry[4] = str(int(user_entry[4]) + reward)
 
 
-      operateCSV.tulis_csv("user.csv", user_data)
-      operateCSV.tulis_csv("monster_inventory.csv", monster_inventory)
+      return coin, monster_inventory
+      # operateCSV.tulis_csv(r"data\user.csv", user_data)
+      # operateCSV.tulis_csv(r"data\monster_inventory.csv", monster_inventory)
+      
     else:
       print("Maaf, anda tidak memiliki cukup OC untuk bermain JACKPOT.")
       return

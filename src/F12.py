@@ -4,8 +4,8 @@ sys.path.append('src')
 import operateCSV
 
 def lihat_shop_monster():
-  monster_data = operateCSV.baca_csv("monster.csv")
-  monster_shop_data = operateCSV.baca_csv("monster_shop.csv")
+  monster_data = operateCSV.baca_csv(r"data\monster.csv")
+  monster_shop_data = operateCSV.baca_csv(r"data\monster_shop.csv")
     
   monster_info = {}
   for monster in monster_data[1:]:
@@ -28,7 +28,7 @@ def lihat_shop_monster():
 
 
 def lihat_shop_potion():
-  item_shop_data = operateCSV.baca_csv("item_shop.csv")
+  item_shop_data = operateCSV.baca_csv(r"data\item_shop.csv")
         
   item_info = {}
   for i, item in enumerate(item_shop_data[1:], start=1):  # Skip header row
@@ -44,10 +44,9 @@ def lihat_shop_potion():
 
 
 def tambah():
-  tambah = input(">>> Mau tambah apa? (monster/potion): ")
   if (tambah.lower() == "monster"):
-    monster_data = operateCSV.baca_csv("monster.csv")
-    monster_shop_data = operateCSV.baca_csv("monster_shop.csv")
+    monster_data = operateCSV.baca_csv(r"data\monster.csv")
+    monster_shop_data = operateCSV.baca_csv(r"data\monster_shop.csv")
 
     id_monster_shop = []
     for monster_shop in monster_shop_data[1:]:
@@ -85,11 +84,12 @@ def tambah():
     
     print(monster_data[monster_index][1], "berhasil ditambahkan ke dalam shop!")
     monster_shop_data.append([monster_id, stock, price])
-    # Menulis kembali data ke dalam file "monster_shop.csv"
-    operateCSV.tulis_csv("monster_shop.csv", monster_shop_data)
+
+    return monster_shop_data
+    # operateCSV.tulis_csv(r"data\monster_shop.csv", monster_shop_data)
   
   elif (tambah.lower() == "potion"):
-    potion_shop_data = operateCSV.baca_csv("item_shop.csv")
+    potion_shop_data = operateCSV.baca_csv(r"data\item_shop.csv")
 
     potion_fixed = ["strength", "resilience", "healing"]
     print("ID | Type         |")
@@ -108,16 +108,13 @@ def tambah():
     # Menambahkan data baru ke dalam list potion_shop_data
     potion_shop_data.append([potion_fixed[int(potion_id)-1], stock, price])
     # Menulis kembali data ke dalam file "potion_shop.csv"
-    operateCSV.tulis_csv("item_shop.csv", potion_shop_data)
-  
-  else:
-    print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")
+    return potion_shop_data
+    # operateCSV.tulis_csv(r"data\item_shop.csv", potion_shop_data)
 
-def ubah():
-  ubah = input(">>> Mau ubah apa? (monster/potion): ")
+def ubah(ubah):
   if (ubah.lower() == "monster"):
-    monster_data = operateCSV.baca_csv("monster.csv")
-    monster_shop_data = operateCSV.baca_csv("monster_shop.csv")
+    monster_data = operateCSV.baca_csv(r"data\monster.csv")
+    monster_shop_data = operateCSV.baca_csv(r"data\monster_shop.csv")
     lihat_shop_monster()
     id_monster = input("Masukkan id monster: ")
     index = -1
@@ -142,20 +139,23 @@ def ubah():
       monster_shop_data[index][1] = stok_baru
       monster_shop_data[index][2] = harga_baru
       print(monster_name, "telah berhasil diubah dengan stok baru sejumlah", stok_baru, " dan dengan harga baru", harga_baru, "!")
-      operateCSV.tulis_csv("monster_shop.csv", monster_shop_data)
+      return monster_shop_data
+      # operateCSV.tulis_csv(r"data\monster_shop.csv", monster_shop_data)
 
     elif stok_baru:
       monster_shop_data[index][1] = stok_baru
       print(monster_name, "telah berhasil diubah dengan stok baru sejumlah", stok_baru, "!")
-      operateCSV.tulis_csv("monster_shop.csv", monster_shop_data)
+      return monster_shop_data
+      # operateCSV.tulis_csv(r"data\monster_shop.csv", monster_shop_data)
 
     elif harga_baru:
       monster_shop_data[index][2] = harga_baru
       print(monster_name, "telah berhasil diubah dengan harga baru", harga_baru, "!")
-      operateCSV.tulis_csv("monster_shop.csv", monster_shop_data)
+      return monster_shop_data
+      # operateCSV.tulis_csv(r"data\monster_shop.csv", monster_shop_data)
     
   elif (ubah.lower() == "potion"):
-    potion_shop_data = operateCSV.baca_csv("item_shop.csv")
+    potion_shop_data = operateCSV.baca_csv(r"data\item_shop.csv")
     lihat_shop_potion()
     id_potion = input("Masukkan id potion: ")
     index = int(id_potion)  # Karena ID berdasarkan urutan dari atas ke bawah
@@ -169,30 +169,29 @@ def ubah():
       potion_shop_data[index][1] = stok_baru
       potion_shop_data[index][2] = harga_baru
       print(potion_shop_data[index][0], "telah berhasil diubah dengan stok baru sejumlah", stok_baru, " dan dengan harga baru", harga_baru, "!")
-      operateCSV.tulis_csv("item_shop.csv", potion_shop_data)
+      return potion_shop_data
+      # operateCSV.tulis_csv(r"data\item_shop.csv", potion_shop_data)
 
     elif stok_baru:
       potion_shop_data[index][1] = stok_baru
       print(potion_shop_data[index][0], "telah berhasil diubah dengan stok baru sejumlah", stok_baru, "!")
-      operateCSV.tulis_csv("item_shop.csv", potion_shop_data)
+      return potion_shop_data
+      # operateCSV.tulis_csv(r"data\item_shop.csv", potion_shop_data)
 
     elif harga_baru:
       potion_shop_data[index][2] = harga_baru
       print(potion_shop_data[index][0], "telah berhasil diubah dengan harga baru", harga_baru, "!")
-      operateCSV.tulis_csv("item_shop.csv", potion_shop_data)
-  
-  else:
-    print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")
+      return potion_shop_data
+      # operateCSV.tulis_csv(r"data\item_shop.csv", potion_shop_data)
 
-def hapus():
-  hapus = input(">>> Mau hapus apa? (monster/potion): ")
+def hapus(hapus):
   if (hapus.lower() == "monster"):
-    monster_data = operateCSV.baca_csv("monster.csv")
-    monster_shop_data = operateCSV.baca_csv("monster_shop.csv")
+    monster_data = operateCSV.baca_csv(r"data\monster.csv")
+    monster_shop_data = operateCSV.baca_csv(r"data\monster_shop.csv")
     lihat_shop_monster()
     id_monster = input(">>> Masukkan id monster: ")
     index = -1
-    for i, item in enumerate(monster_shop_data[1:], start=1):  # Skip header row
+    for i, item in enumerate(monster_shop_data[1:], start=1): 
       if item[0] == id_monster:
         index = i
         break
@@ -202,7 +201,7 @@ def hapus():
 
     monster_id = monster_shop_data[index][0]
     monster_name = ""
-    for monster in monster_data[1:]:  # Skip header row
+    for monster in monster_data[1:]: 
       if monster[0] == monster_id:
         monster_name = monster[1]
         break
@@ -212,12 +211,13 @@ def hapus():
     if (hapus_confirm.lower() == 'y'):
       print(monster_name,"telah berhasil dihapus dari shop!")
       monster_shop_data = monster_shop_data[:index] + monster_shop_data[index+1:]
-      operateCSV.tulis_csv("monster_shop.csv", monster_shop_data)
+      return monster_shop_data
+      # operateCSV.tulis_csv(r"data\monster_shop.csv", monster_shop_data)
     else: # hapus_confirm == n
       print("Penghapusan dibatalkan.") 
 
   elif (hapus == "potion"):
-    potion_shop_data = operateCSV.baca_csv("item_shop.csv")
+    potion_shop_data = operateCSV.baca_csv(r"data\item_shop.csv")
     lihat_shop_potion()
     id_potion = input("Masukkan id potion: ")
     index = int(id_potion)
@@ -229,7 +229,8 @@ def hapus():
     if (hapus_confirm.lower() == 'y'):
       print(potion_shop_data[index][0], "telah berhasil dihapus dari shop!")
       potion_shop_data = potion_shop_data[:index] + potion_shop_data[index+1:]
-      operateCSV.tulis_csv("item_shop.csv", potion_shop_data)
+      return potion_shop_data
+      # operateCSV.tulis_csv(r"data\item_shop.csv", potion_shop_data)
     else:
       print("Penghapusan dibatalkan.")    
 
@@ -250,13 +251,33 @@ def shop_management():
         lihat_shop_potion()
       else: print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")
     elif (aksi == "tambah"):
-      tambah()
+      tambah = input(">>> Mau tambah apa? (monster/potion): ")
+      if tambah.lower() == "monster":
+        monster_shop = tambah(tambah)
+      elif tambah.lower() == "potion":
+        item.shop = tambah(tambah)
+      else:
+        print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")
     elif (aksi == "ubah"):
-      ubah()
+      ubah = input(">>> Mau ubah apa? (monster/potion): ")
+      if ubah.lower() == "monster":
+        monster_shop = ubah(ubah)
+      elif ubah.lower() == "potion":
+        item.shop = ubah(ubah)
+      else:
+        print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")
     elif (aksi == "hapus"):
-      hapus()
+      hapus = input(">>> Mau hapus apa? (monster/potion): ")
+      if hapus.lower() == "monster":
+        monster_shop = hapus(hapus)
+      elif hapus.lower() == "potion":
+        item.shop = hapus(hapus)
+      else:
+        print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")
     elif (aksi == "keluar"):
       print("Dadah Mr. Yanto, sampai jumpa lagi!")
       keluar = True
     else: # input diluar yang diminta
       print("Aksi tidak valid. Silakan pilih aksi lainnya.")
+
+  return username, role, coin, monster_shop, item_shop

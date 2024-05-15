@@ -24,8 +24,7 @@ def get_valid_password():
         else:
             print("Password harus terdiri dari minimal 8 karakter!")
 
-def register(user):
-  user_data = operateCSV.baca_csv("user.csv")
+def register(user, user_data):
   print(">>> REGISTER")
   if user: # Jika user telah login
     print("Register gagal!")
@@ -48,26 +47,22 @@ def register(user):
       return user
         
     new_user = [] # array untuk menampung data user baru saat register
+  
+    new_id = len(user_data)
+    new_user.append(new_id)
+    new_user.append(username)
+    new_user.append(password)
+    new_user.append('agent')
+    new_user.append(str(0))
 
-    for i in range(1, len(user_data)):
-      if str(F00.RNG(1, 100)) not in user_data[i][0]:
-        new_user.append(str(F00.RNG(1, 100)))
-        new_user.append(username)
-        new_user.append(password)
-        new_user.append('agent')
-        new_user.append(str(0))
-
-    user_gabung = [] # array untuk menampung data user lama dan user baru
-    for row in csv_user:
-      user_gabung.append(row) # tampung data user lama
+    merge_user = [] 
+    for row in user_data:
+      merge_user.append(row) 
         
-    user_gabung.append(new_user) # tambah data user baru
-
-    operateCSV.tulis_csv('user.csv', user_gabung)
-    monster_data = operateCSV.baca_csv('monster.csv') 
+    merge_user.append(new_user)
 
     print("Silahkan pilih salah satu monster sebagai monster awalmu:")
-    for i in range(1, 4):
+    for i in range(1, 6):
       print(f"{i}. {monster_data[i][1]}")
   
     pilih = int(input("Monster pilihanmu: "))
@@ -84,7 +79,9 @@ def register(user):
         print("Monster tidak ditemukan.")
     else:
       print("Pilihan monster tidak valid.")
-  
 
+  # operateCSV.tulis_csv(r'data\user.csv', merge_user)
+  # monster_data = operateCSV.baca_csv(r'data\monster.csv')
   return username, monster_id
 
+# register("", operateCSV.baca_csv(r'data\user.csv'))

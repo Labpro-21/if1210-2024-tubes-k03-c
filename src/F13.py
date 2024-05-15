@@ -22,7 +22,7 @@ def ambil_id_terbawah(monster_data):
 
 
 def lihat_monster():
-  monster_data = operateCSV.baca_csv("monster.csv")
+  monster_data = operateCSV.baca_csv(r"data\monster.csv")
 
   print("ID | Type         | ATK Power | DEF Power | HP   |")
   for monster in monster_data[1:]:  # Skip header row
@@ -30,7 +30,7 @@ def lihat_monster():
 
 
 def tambah_monster():
-  monster_data = operateCSV.baca_csv("monster.csv")
+  monster_data = operateCSV.baca_csv(r"data\monster.csv")
   print("Memulai pembuatan monster baru")
   while True:
     monster_name = input(">>> Masukkan Type / Nama : ")
@@ -84,12 +84,13 @@ def tambah_monster():
     print("Monster baru telah ditambahkan")
     monster_data.append([monster_id_baru,monster_name, atk_power, def_power, hp])
     # Menulis kembali data ke dalam file "monster.csv"
-    operateCSV.tulis_csv("monster.csv", monster_data)
+    return monster_data
+    # operateCSV.tulis_csv(r"data\monster.csv", monster_data)
   else: # hapus_confirm == n
     print("Monster gagal ditambahkan!") 
 
 
-def monster_management():
+def monster_management(username, role, coin):
   print("SELAMAT DATANG DI DATABASE PARA MONSTER !!!")
   print("1. Tampilkan semua Monster")
   print("2. Tambah Monster baru")
@@ -100,9 +101,11 @@ def monster_management():
     if (aksi == "1"):
       lihat_monster()
     elif (aksi == "2"):
-      tambah_monster()
+      monster_data = tambah_monster()
     elif (aksi == "3"):
       print("Dadah, sampai jumpa lagi!")
       keluar = True
     else:
       print("Aksi tidak valid. Silakan pilih aksi lainnya.")
+
+  return username, role, coin, monster_data
