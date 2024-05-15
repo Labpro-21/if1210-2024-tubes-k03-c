@@ -1,12 +1,6 @@
 id;username;password;role;oc
 1;Mr_Monogram;monogrammer77;admin;0
 2;Asep_Spakbor;asepwow123;agent;9999
-<<<<<<< HEAD
-3;Agen_P;platypus123;agent;0
-4;B4ngk1dd0ssss;bangkitganteng;agent;1337
-5;Kenny_agen_rahasia;kribogeming55;agent;6699
-=======
 3;Agen_P;platypus123;agent;95796
 4;B4ngk1dd0ssss;bangkitganteng;agent;1337
 5;Kenny_agen_rahasia;kribogeming55;agent;6699
->>>>>>> 04e55c86eefa8973ca24cd63a12741214c0ea3c5
