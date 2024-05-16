@@ -1,3 +1,5 @@
+import testloader
+import operateCSV
 def fmonster () :
     # search monster by user id
     item_monster    = testloader.filter_monster(operateCSV.baca_csv(r"data\monster.csv"), monster_id)
