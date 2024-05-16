@@ -43,7 +43,7 @@ def lihat_shop_potion():
     print(f"{i:<2} | {item_details[0]:<19} | {stock:<4} | {price:<5} |")
 
 
-def tambah():
+def tambah(tambah):
   if (tambah.lower() == "monster"):
     monster_data = operateCSV.baca_csv(r"data\monster.csv")
     monster_shop_data = operateCSV.baca_csv(r"data\monster_shop.csv")
