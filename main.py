@@ -1,7 +1,9 @@
 import sys
 sys.path.append('src')
-import F01, F08, F10, F11, F12, F13
+
+import B04, F01, F02, F03, F08, F10, F11, F12, F13
 import operateCSV, testloader
+
 
 user_data = operateCSV.baca_csv(r"data\user.csv")
 monster_data = operateCSV.baca_csv(r'data\monster.csv')
@@ -16,9 +18,10 @@ berhenti = False
 while not(berhenti):
   menu = input("").upper()
   if menu == 'REGISTER':
-    (user_dan_monster, role, coin) = (F01.register(username, user_data), 'agent', 0)
+    (username, monster_id, role, coin) = (F01.register(username, user_data, monster_data), 'agent', 0)
   elif menu == 'LOGIN':
     (username, role, coin) = (F02.login(username, role, coin))
+    print(username, role, coin)
   elif menu == 'LOGOUT':
     (username, role, coin) = (F03.logout(username, role, coin))
   elif (menu == "SHOP"):
@@ -62,3 +65,4 @@ while not(berhenti):
     
   else:
     print("Perintah tidak dikenal.")
+
