@@ -1,7 +1,7 @@
 import sys
 sys.path.append('src')
 
-import B04, F01, F02, F03, F08, F10, F11, F12, F13
+import B04, F01, F02, F03, F07, F08, F10, F11, F12, F13
 import operateCSV, testloader
 
 
@@ -16,7 +16,7 @@ monster_shop = operateCSV.baca_csv(r'data\monster_shop.csv')
 
 berhenti = False
 while not(berhenti):
-  menu = input("").upper()
+  menu = input(">>> ").upper()
   if menu == 'REGISTER':
     (username, monster_id, role, coin) = (F01.register(username, user_data, monster_data), 'agent', 0)
   elif menu == 'LOGIN':
@@ -24,6 +24,12 @@ while not(berhenti):
     print(username, role, coin)
   elif menu == 'LOGOUT':
     (username, role, coin) = (F03.logout(username, role, coin))
+  elif menu == "INVENTORY":
+    if username != '':
+      if role == "agent":
+        F07.finventory()
+    else:
+      print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
   elif (menu == "SHOP"):
     print(">>> SHOP")
     print()
