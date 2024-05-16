@@ -1,8 +1,4 @@
 user_id;type;quantity
-2;strength;5
-2;resilience;3
-3;resilience;27
-4;healing;3
-5;strength;20
-3;strength;10
-3;healing;10
+2;Strength;5
+2;Resilience;3
+3;Resilience;27
