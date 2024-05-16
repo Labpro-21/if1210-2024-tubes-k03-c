@@ -1,7 +1,7 @@
 import sys
 sys.path.append('src')
-import B04, F01, F02, F03, F10, F11, F12, F13
-import operateCSV
+import F01, F08, F10, F11, F12, F13
+import operateCSV, testloader
 
 user_data = operateCSV.baca_csv(r"data\user.csv")
 monster_data = operateCSV.baca_csv(r'data\monster.csv')
@@ -16,10 +16,9 @@ berhenti = False
 while not(berhenti):
   menu = input("").upper()
   if menu == 'REGISTER':
-    (username, monster_id, role, coin) = (F01.register(username, user_data, monster_data), 'agent', 0)
+    (user_dan_monster, role, coin) = (F01.register(username, user_data), 'agent', 0)
   elif menu == 'LOGIN':
     (username, role, coin) = (F02.login(username, role, coin))
-    print(username, role, coin)
   elif menu == 'LOGOUT':
     (username, role, coin) = (F03.logout(username, role, coin))
   elif (menu == "SHOP"):
@@ -36,6 +35,13 @@ while not(berhenti):
     if username != '':
       if role == "agent":
         (username, role, coin, user_data, monster_inventory) = (F11.laboratory(username, role, coin))
+    else:
+      print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
+
+  elif (menu == "BATTLE"):
+    if username != '':
+      if role == "agent":
+        (username, role, coin) = (F08.battle(username, role, coin))
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
 
@@ -56,4 +62,3 @@ while not(berhenti):
     
   else:
     print("Perintah tidak dikenal.")
-
