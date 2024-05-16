@@ -12,7 +12,7 @@ item_shop = operateCSV.baca_csv(r'data\item_shop.csv')
 monster_inventory = operateCSV.baca_csv(r'data\monster_inventory.csv')
 monster_shop = operateCSV.baca_csv(r'data\monster_shop.csv')
 
-(username, user_id, role, coin) = ('', '', '', 0)
+(username, user_id, role, coin, win) = ('', '', '', 0, False)
 
 berhenti = False
 while not(berhenti):
@@ -48,6 +48,13 @@ while not(berhenti):
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
 
   elif (menu == "BATTLE"):
+    if username != '':
+      if role == "agent":
+        (username, role, coin) = (F08.battle(username, role, coin))
+    else:
+      print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
+
+  elif (menu == "ARENA"):
     if username != '':
       if role == "agent":
         (username, role, coin) = (F08.battle(username, role, coin))

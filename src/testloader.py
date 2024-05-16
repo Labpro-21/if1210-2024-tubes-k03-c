@@ -4,8 +4,8 @@ import operateCSV
 u_id=0
 u_n=1
 u_m_id=1
-u_i_type=0
-u_i_q=1
+u_i_type=1
+u_i_q=0
 u_m_lv=2
 
 m_id=0
@@ -34,7 +34,7 @@ def filter_monster(monsterinv_list : list,user : int) -> list:
 #filter item berdasarkan data user
 def filter_item(storage : list, user : int) -> list:
     for item in storage:
-        if storage[u_id]==user:
+        if item[u_id]==str(user):
             user_inventory.append([item[u_i_type],item[u_i_q]])
     return user_inventory
             

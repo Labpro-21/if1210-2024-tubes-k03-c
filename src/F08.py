@@ -20,6 +20,8 @@ l_m_gua=2
 l_m_hp=3
 l_m_lv=4
 
+i_type=0
+i_qty=1
 
 monster_arr=operateCSV.baca_csv(r'data\monster.csv')
 
@@ -52,7 +54,20 @@ def monsterRNG() -> int:
 
 #menentukan rng level monster lawan
 def monsterlvRNG() -> int:
-    return F00.RNG(1,5)
+    chance=F00.RNG(1,1000001)
+    if chance<600000:
+        r_lv=1
+    elif chance<800000:
+        r_lv=2
+    elif chance<900000:
+        r_lv=3
+    elif chance<999999:
+        r_lv=4
+    else: #chance==1000000
+        r_lv=5
+    return r_lv
+    
+        
 
 #menentukan rng attack
 def attackRNG(low : int,high : int) -> int:
@@ -63,9 +78,9 @@ def ocRNG() -> int:
     return F00.RNG(5,500)
 
 #menampilkan musuh
-def showMenu(loaded_stat : list, list_monster : list, enemy_rng : int, level : int):
+def showMenu(loaded_stat : list, list_monster : list, enemy_rng : int, level : int, menu : str):
     #kamus lokal
-    print(f"""BATTLE
+    print(f"""{menu}
                        
            _/\----/\   
           /         \     /\
@@ -103,7 +118,7 @@ def monSelect(player_monster_arr : list) -> int:
         print('Pilihan nomor tidak tersedia!')
         return monSelect(player_monster_arr)
     
-def showMnst(player_monster_arr : list,player_monster : int):
+def showMnst(player_monster_arr : list,player_monster : int, username : str):
     print(f"""
           /\----/\_   
          /         \   /|
@@ -117,9 +132,9 @@ def showMnst(player_monster_arr : list,player_monster : int):
          |  |   |   |
           \._\   \._\ 
 
-RAWRRR, Agent X mengeluarkan monster {player_monster_arr[player_monster][l_m_type]} !!!
+RAWRRR, Agent {username} mengeluarkan monster {player_monster_arr[player_monster][l_m_type]} !!!
 """)
-    
+      
 def statShow(player_monster_arr : list,player_monster : int, loaded_stat : list):
     print(f"""Name      : {player_monster_arr[player_monster][l_m_type]}
 ATK Power : {math.floor(loaded_stat[1][0])}
@@ -127,11 +142,14 @@ DEF Power : {math.floor(loaded_stat[1][1])}
 HP        : {math.floor(loaded_stat[1][2])}
 Level     : {player_monster_arr[player_monster][l_m_lv]}""")
     
-def playerTurn(turn_counter : int,player_monster_arr : list,player_monster : int) -> int:
+def display_playerTurn(turn_counter : int,player_monster_arr : list,player_monster : int):
     print(f"""============ TURN {turn_counter} ({player_monster_arr[player_monster][l_m_type]}) ============
 1. Attack
 2. Use Potion
-3. Quit""")
+3. Quit
+          """)
+    
+def playerTurn(turn_counter : int,player_monster_arr : list,player_monster : int) -> int:
     tslct=int(input('Pilih perintah: '))
     if tslct in [1,2,3]:
         return tslct
@@ -139,8 +157,8 @@ def playerTurn(turn_counter : int,player_monster_arr : list,player_monster : int
         print('Tidak ada perintah')
         return playerTurn(turn_counter,player_monster_arr,player_monster)
 
-def playerHit(monster_arr : list,player_monster_arr : list, enemy_rng : int, player_monster : int, hitpoints : int, enemy_stat : list, level : int, attack : int) -> int:
-        hpl=dmgCalc(hitpoints,atkMech(attack,enemy_stat[1][1],0,0))
+def playerHit(monster_arr : list,player_monster_arr : list, enemy_rng : int, player_monster : int, hitpoints : int, enemy_stat : list, level : int, attack : float) -> int:
+        hpl=dmgCalc(hitpoints,atkMech(attack,enemy_stat[1][1]))
         if hpl<=0:
             hpl=0
         print(f"""SCHWINKKK, {player_monster_arr[player_monster][l_m_type]} menyerang {monster_arr[enemy_rng][m_type]} !!!
@@ -153,8 +171,8 @@ Level     : {level}
 """)
         return hpl
 
-def AITurn(turn_counter : int,monster_arr : list,player_monster_arr : list, enemy_rng : int, player_monster : int, player_stat : list, hitpoints : int, attack : int) -> int:
-    hpx=dmgCalc(hitpoints,atkMech(attack,player_stat[1][1],0,0))
+def AITurn(turn_counter : int,monster_arr : list,player_monster_arr : list, enemy_rng : int, player_monster : int, player_stat : list, hitpoints : int, attack : float, buffs : list) -> int:
+    hpx=dmgCalc(hitpoints,atkMech(attack,player_stat[1][1]))
     if hpx<=0:
         hpx=0
     print(f"""============ TURN {turn_counter} ({monster_arr[enemy_rng][m_type]}) ============
@@ -162,26 +180,87 @@ def AITurn(turn_counter : int,monster_arr : list,player_monster_arr : list, enem
 SCHWINKKK, {monster_arr[enemy_rng][m_type]} menyerang {player_monster_arr[player_monster][l_m_type]} !!!
 
 Name      : {player_monster_arr[player_monster][l_m_type]}
-ATK Power : {math.floor(player_stat[1][0])}
-DEF Power : {math.floor(player_stat[1][1])}
+ATK Power : {math.floor(player_stat[1][0])*(1+buffs[1][0])}
+DEF Power : {math.floor(player_stat[1][1])*(1+buffs[1][1])}
 HP        : {math.floor(hpx)}
 Level     : {player_monster_arr[player_monster][l_m_lv]}
 """)
     return hpx
 
-def potion_menu(player_inv : list):
+def potion_menu(player_inv : list, turn_counter : int,player_monster_arr : list,player_monster : int) -> int:
     if len(player_inv)==1:
         print("Anda tidak memiliki potion, silahkan beli terlebih dahulu di shop!")
+        return playerTurn(turn_counter,player_monster_arr,player_monster)
     else:
-        print("""""")
+        print("============ POTION LIST ============")
+        i_counter=1
+        for items in player_inv:
+            if items[i_type]!='type':
+                if items[i_type]=='Strength':
+                    desc='Increases ATK Power by 15%'
+                elif items[i_type]=='Resilience':
+                    desc='Increases DEF Power by 10%'
+                else: #items[i_type]=='Health':
+                    desc='Restores Health by 20%'
+                print(f'{i_counter}. {items[i_type]} Potion (Qty : {items[i_qty]}) - {desc}')
+                i_counter+=1
+        i_counter+=1
+        print(f'{i_counter}. Cancel')
+        return i_counter
 
-def minum_potion(status : list, p_stat : list, p_hp : list, player_inv : list) -> int :
-    print
+def potion_selector(i_counter : int) -> int:
+    pselect=int(input('Pilih perintah: '))
+    if pselect not in range(1,i_counter+1):
+        return potion_selector(i_counter)
+    else:
+        return pselect
 
-def atkMech(atk : float,dfd : float,buff_1 : int,buff_2 : int) -> int:
-    atkCnt=atk*(1+(buff_1/100))
-    defCnt=dfd*(1+(buff_2/100))
-    dmgCnt=atkCnt*(1-(defCnt/100))
+def minum_potion(status : list, p_stat : list,p_hol : list, p_hp : list, player_inv : list, pselect : int, buffs : list):
+    if player_inv[pselect][i_type]=='Strength':
+            if status[0]:
+                print(f'Monstermu menolak ramuan yang kamu berikan seolah-olah dia memahami ramuan tersebut sudah tidak bermanfaat lagi.')
+            elif player_inv[pselect][i_qty]=='0':
+                print(f'Wah, kamu sedang tidak memiliki ramuan ini, silahkan pilih ramuan lain!')
+            else:
+                p_hol[1][1],p_hol[1][0]=p_hol[1][1]*(1+0.15),p_hol[1][0]*(1+0.15)
+                buffs[1][0]=0.15
+                status[0]=True
+                player_inv[pselect][i_qty]=str(int(player_inv[pselect][i_qty])-1)
+                print('Setelah meminum ramuan ini, aura kekuatan terlihat mengelilingi monstermu dan gerakannya menjadi lebih cepat dan mematikan.')
+    elif player_inv[pselect][i_type]=='Resilience':
+            if status[1]:
+                print(f'Monstermu menolak ramuan yang kamu berikan seolah-olah dia memahami ramuan tersebut sudah tidak bermanfaat lagi.')
+            elif player_inv[pselect][i_qty]=='0':
+                print(f'Wah, kamu sedang tidak memiliki ramuan ini, silahkan pilih ramuan lain!')
+            else:
+                p_stat[1][1]=p_stat[1][1]*(1+0.1)
+                buffs[1][1]=0.1
+                status[1]=True
+                player_inv[pselect][i_qty]=str(int(player_inv[pselect][i_qty])-1)
+                print('Setelah meminum ramuan ini, muncul sebuah energi pelindung di sekitar monstermu yang membuatnya terlihat semakin tangguh dan sulit dilukai.')
+    elif player_inv[pselect][i_type]=='Health':
+            if status[2]:
+                print(f'Monstermu menolak ramuan yang kamu berikan seolah-olah dia memahami ramuan tersebut sudah tidak bermanfaat lagi.')
+            elif player_inv[pselect][i_qty]=='0':
+                print(f'Wah, kamu sedang tidak memiliki ramuan ini, silahkan pilih ramuan lain!')
+            else:
+                status[2]=True
+                player_inv[pselect][i_qty]=str(int(player_inv[pselect][i_qty])-1)
+                temp_hp=p_hp*(1+0.2)
+                if p_hp==p_stat[1][2]:
+                    print('HP mu sudah penuh, tidak perlu untuk memulihkan HP.')
+                elif temp_hp>p_hp:
+                    temp_hp=p_stat[1][2]
+                    p_hp=temp_hp
+                    print('Kamu memulihkan HP monstermu.')
+                else:
+                    p_hp=temp_hp
+                    print('Kamu memulihkan HP monstermu.')
+
+
+
+def atkMech(atk : float,dfd : float) -> float:
+    dmgCnt=atk*(1-(dfd/100))
     return dmgCnt
 
 def dmgCalc(hpx : int,damage : int) -> int:
@@ -189,12 +268,15 @@ def dmgCalc(hpx : int,damage : int) -> int:
     hp-=damage
     return hp
     
-def battle(username : str, role : str, coin : int, userdat : list) -> int:
+def battle(username : str, role : str, coin : int, userdat : list, menu : str, stage : int) -> tuple[str,str,int]:
     #find uid
     userid=testloader.get_uid(userdat,username)
     #load datas
     player_monster_arr=(testloader.monster_inventory(testloader.monster,testloader.filter_monster(testloader.monstinv,userid)))
-    player_inv_arr=(testloader.filter_item(testloader.storage,3))
+    player_inv_arr=(testloader.filter_item(testloader.storage,userid))
+    #initiate buff array
+    buffs=[['atk','def'],[0,0]]
+    print(player_inv_arr)
     #initial turn
     turn=1
     #fight = trues
@@ -204,10 +286,13 @@ def battle(username : str, role : str, coin : int, userdat : list) -> int:
     #testing ground
     #initialize enemy monster rng, enemy level, and load enemy stats
     enum=monsterRNG()
-    e_level=monsterlvRNG()
+    if menu=='ARENA':
+        e_level=stage
+    else:
+        e_level=monsterlvRNG()
     e_stat=enemy_statloader(monster_arr,enum,e_level)
     #display enemy battle begins
-    showMenu(e_stat,monster_arr,enum,e_level)
+    showMenu(e_stat,monster_arr,enum,e_level,menu)
     #player select monster
     monster_number=monSelect(player_monster_arr)
     #load player monster stats
@@ -219,32 +304,36 @@ def battle(username : str, role : str, coin : int, userdat : list) -> int:
     e_hp=e_stat[1][2]
     p_hp=p_stat[1][2]
     #show player monster
-    showMnst(player_monster_arr,monster_number)
+    showMnst(player_monster_arr,monster_number,username)
     statShow(player_monster_arr,monster_number,p_stat)
+    display_playerTurn(turn,player_monster_arr,monster_number)
     command=playerTurn(turn,player_monster_arr,monster_number)
     while command!=3 and fight:
         if command==1:
             p_attack=attackRNG(p_hol[1][1],p_hol[1][0])
             e_hp=playerHit(monster_arr,player_monster_arr,enum,monster_number,e_hp,e_stat,e_level,p_attack)
         if command==2:
-            print('belom ada')
+            minum_potion(potion_check,p_stat,p_hol,p_hp,player_inv_arr,potion_selector(potion_menu(player_inv_arr,turn,player_monster_arr,monster_number)),buffs)
         if e_hp<=0:
             win=True
             break
         e_attack=attackRNG(e_hol[1][1],e_hol[1][0])
-        p_hp=AITurn(turn,monster_arr,player_monster_arr,enum,monster_number,p_stat,p_hp,e_attack)
+        p_hp=AITurn(turn,monster_arr,player_monster_arr,enum,monster_number,p_stat,p_hp,e_attack,buffs)
         if p_hp<=0:
             win=False
             break
+        display_playerTurn(turn,player_monster_arr,monster_number)
         command=playerTurn(turn,player_monster_arr,monster_number)
         turn=turnCount(True,turn)
     if win:
-        print('Menang yey')
         coin+=ocRNG()
+        print(f'Kamu berhasil menang dan mendapatkan OC sebanyak {coin}')
         return username,role,coin
     elif command==3:
-        print('cih kabur')
+        print('Kamu berhasil kabur.')
+        return username,role,coin,win
     else:
-        print('Yah Kalah')
+        print(f'Sayang sekali, kamu telah dikalahkan oleh {monster_arr[enum][m_type]}')
+        return username,role,coin,win
 
-battle('Agen_P','agent',0,testloader.userdat)
+battle('Agen_P','agent',0,testloader.userdat, 'BATTLE', 1)
