@@ -238,8 +238,8 @@ def hapus(hapus):
     print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")
 
 
-def shop_management():
-  print("Irasshaimase! Selamat datang kembali, Mr. Yanto!")
+def shop_management(username, role, coin):
+  print(f"Irasshaimase! Selamat datang kembali, {username}!")
   keluar = False
   while not keluar:
     aksi = input("\n>>> Pilih aksi (lihat/tambah/ubah/hapus/keluar): ")
@@ -275,7 +275,7 @@ def shop_management():
       else:
         print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")
     elif (aksi == "keluar"):
-      print("Dadah Mr. Yanto, sampai jumpa lagi!")
+      print(f"Dadah {username}, sampai jumpa lagi!")
       keluar = True
     else: # input diluar yang diminta
       print("Aksi tidak valid. Silakan pilih aksi lainnya.")

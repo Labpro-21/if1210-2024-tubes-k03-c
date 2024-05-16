@@ -24,7 +24,7 @@ def get_valid_password():
         else:
             print("Password harus terdiri dari minimal 8 karakter!")
 
-def register(user, user_data):
+def register(user, user_data, monster_data):
   print(">>> REGISTER")
   if user: # Jika user telah login
     print("Register gagal!")
@@ -45,7 +45,7 @@ def register(user, user_data):
     if not password:
       print("Password tidak boleh kosong!")
       return user
-        
+
     new_user = [] # array untuk menampung data user baru saat register
   
     new_id = len(user_data)

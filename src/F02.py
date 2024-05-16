@@ -23,7 +23,4 @@ def login(user, role_type, coin):
               print("Masukkan command “help” untuk daftar command yang dapat kamu panggil.")
               berhasil = True
               return username, role, coin
-          else: # password ga sesuai
-            print("Password salah!")
-        else: # tidak terdapat username
-          print("Username tidak terdaftar!")
+      print("Input username atau password salah!")
