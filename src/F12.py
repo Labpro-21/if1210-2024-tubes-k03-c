@@ -91,7 +91,7 @@ def tambah(tambah):
   elif (tambah.lower() == "potion"):
     potion_shop_data = operateCSV.baca_csv(r"data\item_shop.csv")
 
-    potion_fixed = ["strength", "resilience", "healing"]
+    potion_fixed = ["Strength", "Resilience", "Healing"]
     print("ID | Type         |")
     for potion_index in range(len(potion_fixed)):
       potion_type = potion_fixed[potion_index]  # Dapatkan jenis potion berdasarkan indeks
@@ -251,27 +251,27 @@ def shop_management(username, role, coin):
         lihat_shop_potion()
       else: print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")
     elif (aksi == "tambah"):
-      tambah = input(">>> Mau tambah apa? (monster/potion): ")
-      if tambah.lower() == "monster":
-        monster_shop = tambah(tambah)
-      elif tambah.lower() == "potion":
-        item.shop = tambah(tambah)
+      tambah_input = input(">>> Mau tambah apa? (monster/potion): ")
+      if tambah_input.lower() == "monster":
+        monster_shop = tambah(tambah_input)
+      elif tambah_input.lower() == "potion":
+        item.shop = tambah(tambah_input)
       else:
         print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")
     elif (aksi == "ubah"):
-      ubah = input(">>> Mau ubah apa? (monster/potion): ")
-      if ubah.lower() == "monster":
-        monster_shop = ubah(ubah)
-      elif ubah.lower() == "potion":
-        item.shop = ubah(ubah)
+      ubah_input = input(">>> Mau ubah apa? (monster/potion): ")
+      if ubah_input.lower() == "monster":
+        monster_shop = ubah(ubah_input)
+      elif ubah_input.lower() == "potion":
+        item.shop = ubah(ubah_input)
       else:
         print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")
     elif (aksi == "hapus"):
-      hapus = input(">>> Mau hapus apa? (monster/potion): ")
-      if hapus.lower() == "monster":
-        monster_shop = hapus(hapus)
-      elif hapus.lower() == "potion":
-        item.shop = hapus(hapus)
+      hapus_input = input(">>> Mau hapus apa? (monster/potion): ")
+      if hapus_input.lower() == "monster":
+        monster_shop = hapus(hapus_input)
+      elif hapus_input.lower() == "potion":
+        item.shop = hapus(hapus_input)
       else:
         print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")
     elif (aksi == "keluar"):
