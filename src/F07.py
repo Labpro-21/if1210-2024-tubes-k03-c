@@ -1,6 +1,7 @@
 import operateCSV
 import testloader
 import math
+import globalfunc
 
 def finventory():
     user_id = 1
