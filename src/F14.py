@@ -10,18 +10,24 @@ def load() -> None:
     parser.add_argument("folder", help= 'path ke folder save data. Gunakan "default" untuk load data')
     args = parser.parse_args(args = None if sys.argv[1:] else ['--help'])
 
-    trackload = os.path.join(os.getcwd(), "data", args.folder)
+    namafolder = args.folder
+    namafolder = os.path.join('data', namafolder)
     # Ini adalah jalur lengkap ke folder penyimpanan data yang akan dimuat. Jalur ini dibuat berdasarkan jalur saat ini (os.getcwd()) dan nama folder yang diberikan oleh pengguna.
     
-    if not os.path.isdir(trackload):
+    if not os.path.isdir(namafolder):
         sys.exit("Folder tidak ditemukan. Pastikan folder ada di ./data/, Usage : python main.py <nama_folder>!")
-
+    
     print('Folder "{}" ditemukan.'.format(args.folder))
 
     print("Loading...")
 
     print("Selamat datang di program OWCA!")
-
-    parser_csv.parse(trackload)
+    user_data = parser_csv.read(os.path.join(namafolder,"user_csv"))
+    monster_data = parser_csv.read(os.path.join(namafolder,"monster.csv"))
+    item_inventory_data = parser_csv.read(os.path.join(namafolder,"item_inventory.csv"))
+    item_shop_data = parser_csv.read(os.path.join(namafolder,"item_shop.csv"))
+    monster_inventory_data = parser_csv.read(os.path.join(namafolder,"monster_inventory.csv"))
+    monster_shop_data = parser_csv.read(os.path.join(namafolder,"monster_shop.csv"))
+    
     time.sleep(2)
-    return
+    return user_data, monster_data, item_inventory_data, item_shop_data, monster_inventory_data, monster_shop_data
