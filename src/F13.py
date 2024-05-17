@@ -4,28 +4,28 @@ sys.path.append('src')
 import operateCSV
 
 def maks(daftar):
-    if not daftar:  # Jika daftar kosong, kembalikan None
+    if not daftar:  
         return None
-    max_val = daftar[0]  # Anggap elemen pertama sebagai nilai maksimum awal
-    for item in daftar[1:]:  # Mulai dari indeks kedua karena kita sudah menganggap indeks pertama sebagai nilai maksimum awal
+    max_val = daftar[0]  
+    for item in daftar[1:]:
         if item > max_val:
             max_val = item
     return max_val
 
 
 def ambil_id_terbawah(monster_data):
-  ids = [int(monster[0]) for monster in monster_data[1:]]  # Ambil semua ID kecuali header
-  if not ids:  # Jika tidak ada ID, gunakan 1 sebagai ID awal
+  ids = [int(monster[0]) for monster in monster_data[1:]]  
+  if not ids:  
     return 1
   else:
-    return maks(ids) + 1  # ID baru adalah nilai maksimum ditambah 1
+    return maks(ids) + 1 
 
 
 def lihat_monster():
   monster_data = operateCSV.baca_csv(r"data\monster.csv")
 
   print("ID | Type         | ATK Power | DEF Power | HP   |")
-  for monster in monster_data[1:]:  # Skip header row
+  for monster in monster_data[1:]:
       print(f"{monster[0]:<2} | {monster[1]:<12} | {monster[2]:<9} | {monster[3]:<9} | {monster[4]:<4} | ")
 
 
@@ -52,13 +52,13 @@ def tambah_monster():
       print("Masukkan input bertipe Integer, coba lagi!")
   
   while True:
-    def_power = input(">>> Masukkan DEF Power (0-50) : ")
+    def_power = input(">>> Masukkan DEF Power (0-500) : ")
     if def_power.isdigit():
       def_power = int(def_power)
-      if 0 <= def_power <= 50:
+      if 0 <= def_power <= 500:
         break
       else:
-        print("DEF Power harus bernilai 0-50, coba lagi!")
+        print("DEF Power harus bernilai 0-500, coba lagi!")
     else:
       print("Masukkan input bertipe Integer, coba lagi!")
     
@@ -83,7 +83,6 @@ def tambah_monster():
   if (hapus_confirm.lower() == 'y'):
     print("Monster baru telah ditambahkan")
     monster_data.append([monster_id_baru,monster_name, atk_power, def_power, hp])
-    # Menulis kembali data ke dalam file "monster.csv"
     return monster_data
     # operateCSV.tulis_csv(r"data\monster.csv", monster_data)
   else: # hapus_confirm == n
