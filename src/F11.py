@@ -72,7 +72,7 @@ def laboratory(username, role, coin):
                 break
 
             if monster_level == 5:
-              print("Maaf, monster yang Anda pilih sudah memiliki level maksimum")
+              print(f"Maaf, monster {monster_name} sudah memiliki level maksimum")
             else:
               upgrade_price = {1: 300, 2: 500, 3: 800, 4: 1000}
               next_level = monster_level + 1
