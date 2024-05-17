@@ -49,13 +49,12 @@ def beli_shop(beli, username, coin):
 
   username_login = username
 
-  # Mencari ID agent yang sedang login
   user_id = None
-  user_oc = None
+  # user_oc = None
   for user_entry in user_data[1:]:
     if user_entry[1] == username_login:
       user_id = user_entry[0]
-      user_oc = int(user_entry[4])
+      # user_oc = int(user_entry[4])
       break
 
   if (beli == "monster"):
@@ -71,7 +70,7 @@ def beli_shop(beli, username, coin):
       print("Monster dengan ID tersebut tidak ditemukan.")
       return
     
-    if int(monster_shop_data[index][2]) > user_oc:
+    if int(monster_shop_data[index][2]) > coin:
       print("OC-mu tidak cukup.")
       return
 
@@ -95,7 +94,7 @@ def beli_shop(beli, username, coin):
         if user_entry[1] == username_login:
           user_entry[4] = str(int(user_entry[4]) - int(monster_shop_data[index][1]))
 
-      coin -= int(monster_shop_data[index][1])
+      coin -= int(monster_shop_data[index][2])
 
       return user_data, monster_inventory, monster_shop_data, coin
       # operateCSV.tulis_csv(r"data\monster_inventory.csv", monster_inventory)
@@ -122,7 +121,7 @@ def beli_shop(beli, username, coin):
       return
 
     total = jumlah*int(item_shop[index][2])
-    if int(total) > user_oc:
+    if int(total) > coin:
       print("OC-mu tidak cukup.")
       return
     
@@ -142,9 +141,9 @@ def beli_shop(beli, username, coin):
       item_shop[index][1] = str(int(item_shop[index][1]) - jumlah)
 
 
-      for user_entry in user_data[1:]:
-        if user_entry[1] == username_login:
-          user_entry[4] = str(int(user_entry[4]) - total)
+      # for user_entry in user_data[1:]:
+      #   if user_entry[1] == username_login:
+      #     user_entry[4] = str(int(user_entry[4]) - total)
 
       coin -= total
 
@@ -172,6 +171,7 @@ def shop_currency(username, role, coin):
       beli = input(">>> Mau beli apa? (monster/potion): ")
       if beli.lower() == "monster":
         (user_data, monster_inventory, monster_shop, coin) = (beli_shop(beli, username, coin))
+        
       elif beli.lower() == "potion":
         (user_data, item_inventory, item_shop, coin) = (beli_shop(beli, username, coin))
       else:
