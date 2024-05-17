@@ -95,7 +95,7 @@ while not(berhenti):
     F15.save(item_inventory, item_shop, monster_inventory, monster_shop, monster_data, user_data)
 
   elif (menu == "EXIT"):
-    F16.exit_program()
+    F16.exit_program(item_inventory, item_shop, monster_inventory, monster_shop, monster_data, user_data)
 
   else:
     print("Perintah tidak dikenal.")
