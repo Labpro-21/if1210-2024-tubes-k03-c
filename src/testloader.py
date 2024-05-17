@@ -20,26 +20,23 @@ monstinv=operateCSV.baca_csv(r'data\monster_inventory.csv')
 storage=operateCSV.baca_csv(r'data\item_inventory.csv')
 userdat=operateCSV.baca_csv(r'data\user.csv')
 
-user_monster=[['monster_id','monster_level']]
-user_inventory=[['type','quantity']]
-monster_invent=[['type','atk','def','hp','lv']]
 
 #filter monster berdasarkan data user
-def filter_monster(monsterinv_list : list,user : int) -> list:
+def filter_monster(monsterinv_list : list,user : int, user_monster : list) -> list:
     for data in monsterinv_list:
         if data[u_id]==user:
             user_monster.append([data[u_m_id],data[u_m_lv]])
     return user_monster
 
 #filter item berdasarkan data user
-def filter_item(storage : list, user : int) -> list:
+def filter_item(storage : list, user : int, user_inventory : list) -> list:
     for item in storage:
         if item[u_id]==str(user):
             user_inventory.append([item[u_i_type],item[u_i_q]])
     return user_inventory
             
 #mengisi monster inventory setelah di filter
-def monster_inventory(monster_list : list,user_monster : list) -> list:
+def monster_inventory(monster_list : list,user_monster : list, monster_invent : list) -> list:
     for monster in monster_list: 
        for usermon in user_monster:
             if monster[m_id]==usermon[m_id]:

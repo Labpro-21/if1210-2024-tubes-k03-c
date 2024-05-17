@@ -1,7 +1,7 @@
 import sys
 sys.path.append('src')
 
-import B04, F01, F02, F03, F07, F08, F10, F11, F12, F13
+import B04, F01, F02, F03, F07, F08, F09, F10, F11, F12, F13
 import operateCSV, testloader
 
 
@@ -11,6 +11,16 @@ item_inventory = operateCSV.baca_csv(r'data\item_inventory.csv')
 item_shop = operateCSV.baca_csv(r'data\item_shop.csv')
 monster_inventory = operateCSV.baca_csv(r'data\monster_inventory.csv')
 monster_shop = operateCSV.baca_csv(r'data\monster_shop.csv')
+
+#dependencies array for loading datas
+user_monster=[['monster_id','monster_level']]
+#mobile inventories
+player_monster_arr=[['type','atk','def','hp','lv']]
+player_inv_arr=[['type','quantity']]
+#potion state
+potion_check=[False,False,False]
+#mobile inventory load state
+loaded=False
 
 (username, user_id, role, coin, win) = ('', '', '', 0, False)
 
@@ -50,14 +60,51 @@ while not(berhenti):
   elif (menu == "BATTLE"):
     if username != '':
       if role == "agent":
-        (username, role, coin) = (F08.battle(username, role, coin))
+        #find uid
+        userid=testloader.get_uid(user_data,username)
+        if not loaded: 
+          #load datas to mobile inventory
+          # print(player_inv_arr)
+          player_monster_arr=(testloader.monster_inventory(monster_data,testloader.filter_monster(monster_inventory,userid,user_monster),player_monster_arr))
+          # print(monster_inventory)
+          # print(monster_data)
+          player_inv_arr=(testloader.filter_item(item_inventory,userid,player_inv_arr))
+          loaded=True
+          # print(player_inv_arr)
+        (username, role, coin) = (F08.battle(username, role, coin, menu, 0, monster_data, player_monster_arr, player_inv_arr, potion_check))
+        #reset potion states
+        potion_check=[False,False,False]
+        #change item in item_inventory from mobile inventory 
+        F08.ubah_potion(item_inventory,userid,player_inv_arr)
+        #unload
+        user_monster=[['monster_id','monster_level']]
+        player_monster_arr=[['type','atk','def','hp','lv']]
+        player_inv_arr=[['type','quantity']]
+        loaded=False
+        # print(player_inv_arr)
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
 
   elif (menu == "ARENA"):
     if username != '':
       if role == "agent":
-        (username, role, coin) = (F08.battle(username, role, coin))
+        #find uid
+        userid=testloader.get_uid(user_data,username)
+        if not loaded: 
+          #load datas to mobile inventory
+          player_monster_arr=(testloader.monster_inventory(monster_data,testloader.filter_monster(monster_inventory,userid,user_monster),player_monster_arr))
+          player_inv_arr=(testloader.filter_item(item_inventory,userid,player_inv_arr))
+          loaded=True
+        (username, role, coin) = (F09.arena(username, role, coin, menu, monster_data, player_monster_arr, player_inv_arr, potion_check))
+        #reset potion states
+        potion_check=[False,False,False]
+        #change item in item_inventory from mobile inventory 
+        F08.ubah_potion(item_inventory,userid,player_inv_arr)
+        #unload
+        user_monster=[['monster_id','monster_level']]
+        player_monster_arr=[['type','atk','def','hp','lv']]
+        player_inv_arr=[['type','quantity']]
+        loaded=False
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
 
