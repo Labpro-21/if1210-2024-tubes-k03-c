@@ -1,4 +1,4 @@
-def HELP (role,username):
+def help(username,role):
     print ("")
     print ("="*10+"HELP"+"="*10)
     print ("")
