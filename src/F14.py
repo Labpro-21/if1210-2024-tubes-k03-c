@@ -2,7 +2,7 @@ import argparse
 import os
 import time
 import sys
-import parser_csv
+import operateCSV
 
 # Fungsi load() akan dipanggil saat program dijalankan. Fungsi ini bertanggung jawab untuk memuat data dari folder yang ditentukan oleh argumen
 def load() -> None:
@@ -21,12 +21,12 @@ def load() -> None:
     print("Loading...")
 
     print("Selamat datang di program OWCA!")
-    user_data = parser_csv.read(os.path.join(namafolder,"user_csv"))
-    monster_data = parser_csv.read(os.path.join(namafolder,"monster.csv"))
-    item_inventory_data = parser_csv.read(os.path.join(namafolder,"item_inventory.csv"))
-    item_shop_data = parser_csv.read(os.path.join(namafolder,"item_shop.csv"))
-    monster_inventory_data = parser_csv.read(os.path.join(namafolder,"monster_inventory.csv"))
-    monster_shop_data = parser_csv.read(os.path.join(namafolder,"monster_shop.csv"))
+    user_data = operateCSV.read(os.path.join(namafolder,"user_csv"))
+    monster_data = operateCSV.read(os.path.join(namafolder,"monster.csv"))
+    item_inventory_data = operateCSV.read(os.path.join(namafolder,"item_inventory.csv"))
+    item_shop_data = operateCSV.read(os.path.join(namafolder,"item_shop.csv"))
+    monster_inventory_data = operateCSV.read(os.path.join(namafolder,"monster_inventory.csv"))
+    monster_shop_data = operateCSV.read(os.path.join(namafolder,"monster_shop.csv"))
     
     time.sleep(2)
     return user_data, monster_data, item_inventory_data, item_shop_data, monster_inventory_data, monster_shop_data
