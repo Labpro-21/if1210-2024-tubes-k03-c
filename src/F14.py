@@ -12,7 +12,6 @@ def load() -> None:
 
     namafolder = args.folder
     namafolder = os.path.join('data', namafolder)
-    # Ini adalah jalur lengkap ke folder penyimpanan data yang akan dimuat. Jalur ini dibuat berdasarkan jalur saat ini (os.getcwd()) dan nama folder yang diberikan oleh pengguna.
     
     if not os.path.isdir(namafolder):
         sys.exit("Folder tidak ditemukan. Pastikan folder ada di ./data/, Usage : python main.py <nama_folder>!")
