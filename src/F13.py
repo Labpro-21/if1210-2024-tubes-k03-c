@@ -22,7 +22,7 @@ def ambil_id_terbawah(monster_data):
 
 
 def lihat_monster():
-  monster_data = operateCSV.baca_csv(r"data\monster.csv")
+  monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
 
   print("ID | Type         | ATK Power | DEF Power | HP   |")
   for monster in monster_data[1:]:
@@ -30,7 +30,7 @@ def lihat_monster():
 
 
 def tambah_monster():
-  monster_data = operateCSV.baca_csv(r"data\monster.csv")
+  monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
   print("Memulai pembuatan monster baru")
   while True:
     monster_name = input(">>> Masukkan Type / Nama : ")
@@ -84,7 +84,7 @@ def tambah_monster():
     print("Monster baru telah ditambahkan")
     monster_data.append([monster_id_baru,monster_name, atk_power, def_power, hp])
     return monster_data
-    # operateCSV.tulis_csv(r"data\monster.csv", monster_data)
+    # operateCSV.tulis_csv(r"data\file_csv\monster.csv", monster_data)
   else: # hapus_confirm == n
     print("Monster gagal ditambahkan!") 
 

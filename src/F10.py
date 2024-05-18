@@ -4,8 +4,8 @@ sys.path.append('src')
 import operateCSV
 
 def lihat_shop_monster():
-  monster_data = operateCSV.baca_csv(r"data\monster.csv")
-  monster_shop_data = operateCSV.baca_csv(r"data\monster_shop.csv")
+  monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
+  monster_shop_data = operateCSV.baca_csv(r"data\file_csv\monster_shop.csv")
     
   monster_info = {}
   for monster in monster_data[1:]:
@@ -28,7 +28,7 @@ def lihat_shop_monster():
 
 
 def lihat_shop_potion():
-  item_shop_data = operateCSV.baca_csv(r"data\item_shop.csv")
+  item_shop_data = operateCSV.baca_csv(r"data\file_csv\item_shop.csv")
         
   item_info = {}
   for i, item in enumerate(item_shop_data[1:], start=1): 
@@ -45,7 +45,7 @@ def lihat_shop_potion():
 
 # Agent
 def beli_shop(beli, username, coin):
-  user_data = operateCSV.baca_csv(r"data\user.csv")
+  user_data = operateCSV.baca_csv(r"data\file_csv\user.csv")
 
   username_login = username
 
@@ -58,9 +58,9 @@ def beli_shop(beli, username, coin):
       break
 
   if (beli == "monster"):
-    monster_inventory = operateCSV.baca_csv(r"data\monster_inventory.csv")
-    monster_data = operateCSV.baca_csv(r"data\monster.csv")
-    monster_shop_data = operateCSV.baca_csv(r"data\monster_shop.csv")
+    monster_inventory = operateCSV.baca_csv(r"data\file_csv\monster_inventory.csv")
+    monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
+    monster_shop_data = operateCSV.baca_csv(r"data\file_csv\monster_shop.csv")
     id_monster = input(">>> Masukkan id monster: ")
     for i, item in enumerate(monster_shop_data[1:], start=1): 
       if item[0] == id_monster:
@@ -105,8 +105,8 @@ def beli_shop(beli, username, coin):
       print("Stok habis.")
 
   elif (beli == "potion"):
-    item_shop = operateCSV.baca_csv(r"data\item_shop.csv")
-    item_inventory = operateCSV.baca_csv(r"data\item_inventory.csv")
+    item_shop = operateCSV.baca_csv(r"data\file_csv\item_shop.csv")
+    item_inventory = operateCSV.baca_csv(r"data\file_csv\item_inventory.csv")
 
     id_potion = input(">>> Masukkan id potion: ")
     jumlah = int(input(">>> Masukkan jumlah: "))

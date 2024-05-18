@@ -4,7 +4,7 @@ sys.path.append('src')
 import operateCSV
 
 def laboratory(username, role, coin):
-  user_data = operateCSV.baca_csv(r"data\user.csv")
+  user_data = operateCSV.baca_csv(r"data\file_csv\user.csv")
 
   username_login = username
 
@@ -18,8 +18,8 @@ def laboratory(username, role, coin):
       break
 
   if user_id:
-    monster_inventory = operateCSV.baca_csv(r"data\monster_inventory.csv")
-    monster_data = operateCSV.baca_csv(r"data\monster.csv")
+    monster_inventory = operateCSV.baca_csv(r"data\file_csv\monster_inventory.csv")
+    monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
 
     print(">>> LABORATORY")
     print()

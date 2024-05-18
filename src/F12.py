@@ -4,8 +4,8 @@ sys.path.append('src')
 import operateCSV
 
 def lihat_shop_monster():
-  monster_data = operateCSV.baca_csv(r"data\monster.csv")
-  monster_shop_data = operateCSV.baca_csv(r"data\monster_shop.csv")
+  monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
+  monster_shop_data = operateCSV.baca_csv(r"data\file_csv\monster_shop.csv")
     
   monster_info = {}
   for monster in monster_data[1:]:
@@ -28,7 +28,7 @@ def lihat_shop_monster():
 
 
 def lihat_shop_potion():
-  item_shop_data = operateCSV.baca_csv(r"data\item_shop.csv")
+  item_shop_data = operateCSV.baca_csv(r"data\file_csv\item_shop.csv")
         
   item_info = {}
   for i, item in enumerate(item_shop_data[1:], start=1):  # Skip header row
@@ -45,8 +45,8 @@ def lihat_shop_potion():
 
 def tambah(tambah):
   if (tambah.lower() == "monster"):
-    monster_data = operateCSV.baca_csv(r"data\monster.csv")
-    monster_shop_data = operateCSV.baca_csv(r"data\monster_shop.csv")
+    monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
+    monster_shop_data = operateCSV.baca_csv(r"data\file_csv\monster_shop.csv")
 
     id_monster_shop = []
     for monster_shop in monster_shop_data[1:]:
@@ -89,7 +89,7 @@ def tambah(tambah):
     # operateCSV.tulis_csv(r"data\monster_shop.csv", monster_shop_data)
   
   elif (tambah.lower() == "potion"):
-    potion_shop_data = operateCSV.baca_csv(r"data\item_shop.csv")
+    potion_shop_data = operateCSV.baca_csv(r"data\file_csv\item_shop.csv")
 
     potion_fixed = ["Strength", "Resilience", "Healing"]
     print("ID | Type         |")
@@ -113,8 +113,8 @@ def tambah(tambah):
 
 def ubah(ubah):
   if (ubah.lower() == "monster"):
-    monster_data = operateCSV.baca_csv(r"data\monster.csv")
-    monster_shop_data = operateCSV.baca_csv(r"data\monster_shop.csv")
+    monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
+    monster_shop_data = operateCSV.baca_csv(r"data\file_csv\monster_shop.csv")
     lihat_shop_monster()
     id_monster = input("Masukkan id monster: ")
     index = -1
@@ -155,7 +155,7 @@ def ubah(ubah):
       # operateCSV.tulis_csv(r"data\monster_shop.csv", monster_shop_data)
     
   elif (ubah.lower() == "potion"):
-    potion_shop_data = operateCSV.baca_csv(r"data\item_shop.csv")
+    potion_shop_data = operateCSV.baca_csv(r"data\file_csv\item_shop.csv")
     lihat_shop_potion()
     id_potion = input("Masukkan id potion: ")
     index = int(id_potion)  # Karena ID berdasarkan urutan dari atas ke bawah
@@ -186,8 +186,8 @@ def ubah(ubah):
 
 def hapus(hapus):
   if (hapus.lower() == "monster"):
-    monster_data = operateCSV.baca_csv(r"data\monster.csv")
-    monster_shop_data = operateCSV.baca_csv(r"data\monster_shop.csv")
+    monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
+    monster_shop_data = operateCSV.baca_csv(r"data\file_csv\monster_shop.csv")
     lihat_shop_monster()
     id_monster = input(">>> Masukkan id monster: ")
     index = -1
@@ -217,7 +217,7 @@ def hapus(hapus):
       print("Penghapusan dibatalkan.") 
 
   elif (hapus == "potion"):
-    potion_shop_data = operateCSV.baca_csv(r"data\item_shop.csv")
+    potion_shop_data = operateCSV.baca_csv(r"data\file_csv\item_shop.csv")
     lihat_shop_potion()
     id_potion = input("Masukkan id potion: ")
     index = int(id_potion)
