@@ -53,3 +53,12 @@ def save(a,b,c,d,e,f):
 
 # Contoh penggunaan
 # save(var_1, var_2, var_3, var_4, var_5, var_6)
+
+a = [{'id': '2', 'username': 'Asep_Spakbor', 'password': 'asepwow123', 'role': 'agent', 'oc': '8999'}]
+b = [{'monster_id': '1', 'stock': '10', 'price': '500'}, {'monster_id': '2', 'stock': '4', 'price': '700'}, {'monster_id': '3', 'stock': '2', 'price': '1000'}, {'monster_id': '4', 'stock': '8', 'price': '550'}, {'monster_id': '5', 'stock': '7', 'price': '600'}]    
+c = [{'type': 'strength', 'stock': '10', 'price': '50'}, {'type': 'resilience', 'stock': '5', 'price': '30'}, {'type': 'healing', 'stock': '3', 'price': '20'}]
+d = [{'user_id': '2', 'monster_id': '1', 'level': '1'}, {'user_id': '2', 'monster_id': '2', 'level': '2'}, {'user_id': '3', 'monster_id': '2', 'level': '2'}, {'user_id': '3', 'monster_id': '3', 'level': '1'}, {'user_id': '4', 'monster_id': '4', 'level': '1'}, {'user_id': '5', 'monster_id': '5', 'level': '5'}, {'user_id': '2', 'monster_id': '3', 'level': '1'}]
+e = [{'user_id': '2', 'type': 'strength', 'quantity': '5'}, {'user_id': '2', 'type': 'resilience', 'quantity': '3'}, {'user_id': '3', 'type': 'resilience', 'quantity': '7'}, {'user_id': '4', 'type': 'healing', 'quantity': '3'}, {'user_id': '5', 'type': 'strength', 'quantity': '20'}]
+f = [{'monster_id': '1', 'stock': '10', 'price': '500'}, {'monster_id': '2', 'stock': '4', 'price': '700'}, {'monster_id': '3', 'stock': '2', 'price': '1000'}, {'monster_id': '4', 'stock': '8', 'price': '550'}, {'monster_id': '5', 'stock': '7', 'price': '600'}] 
+
+save(a,b,c,d,e,f)
