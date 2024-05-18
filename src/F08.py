@@ -49,11 +49,11 @@ def turnCount(cond : bool,turn : int) -> int:
 #menentukan rng monster lawan
 def monsterRNG(monsterdat : list) -> int:
     chance=chanceRNG()
-    if chance<999999: #chance 9.99999%
-        monster=F00.RNG(1,13) #for some reason klo lebih dr 13 overload idk need help here
+    if chance<999999: #chance 99.9999%
+        monster=F00.RNG(1,(len(monsterdat)-1)) #for some reason klo lebih dr 13 overload idk need help here
         while monster==13:
-            monster=F00.RNG(1,13)
-    else: #chance==1000000 #chance 0.00001%
+            monster=F00.RNG(1,(len(monsterdat)-1))
+    else: #chance==1000000 #chance 0.0001%
         monster=13
     return monster
 
@@ -71,9 +71,9 @@ def monsterlvRNG() -> int:
         r_lv=2
     elif chance<950000: #chance 15%
         r_lv=3
-    elif chance<999999: #chance 9.99999%
+    elif chance<999999: #chance 4.9999%
         r_lv=4
-    else: #chance==1000000 #chance 0.00001%
+    else: #chance==1000000 #chance 0.0001%
         r_lv=5
     return r_lv       
 
@@ -85,21 +85,20 @@ def attackRNG(low : int,high : int) -> int:
 def ocRNG() -> int:
     chance=chanceRNG()
     if chance<600000: #chance 60%
-        duit=F00.RNG(1,200)
+        duit=F00.RNG(1,30)
     elif chance<800000: #chance 20%
-        duit=F00.RNG(201,400)
+        duit=F00.RNG(31,50)
     elif chance<950000: #chance 15%
-        duit=F00.RNG(401,600)
-    elif chance<999999: #chance 5.99999%
-        duit=F00.RNG(601,800)
-    else: #chance==1000000 #chance 0.00001%
-        duit-F00.RNG(801,1000)
+        duit=F00.RNG(51,90)
+    elif chance<999999: #chance 4.9999%
+        duit=F00.RNG(91,170)
+    else: #chance==1000000 #chance 0.0001%
+        duit-F00.RNG(171,330)
     return duit
 
 #menampilkan musuh
 def showMenu(loaded_stat : list, list_monster : list, enemy_rng : int, level : int, menu : str):
-    print(f"""{menu}
-RAWRRR, Monster {list_monster[enemy_rng][m_type]} telah muncul !!!
+    print(f"""RAWRRR, Monster {list_monster[enemy_rng][m_type]} telah muncul !!!
 
 Name      : {list_monster[enemy_rng][m_type]}
 ATK Power : {math.floor(loaded_stat[1][0])}
@@ -116,9 +115,9 @@ def monSelect(player_monster_arr : list) -> int:
         if monster[l_m_type]!='type':
             print(f'{m_count}. {monster[l_m_type]}')
             m_count+=1
+    print()
     slct=int(input('Pilih monster untuk bertarung: '))
     if slct in range(1,m_count):
-        print()
         return slct      
     else:
         print('Pilihan nomor tidak tersedia!\n')
@@ -126,7 +125,7 @@ def monSelect(player_monster_arr : list) -> int:
 
 #display monster player    
 def showMnst(player_monster_arr : list,player_monster : int, username : str):
-    print(f"""
+    print(f"""        
 RAWRRR, Agent {username} mengeluarkan monster {player_monster_arr[player_monster][l_m_type]} !!!
 """)
 
@@ -136,21 +135,22 @@ def statShow(player_monster_arr : list,player_monster : int, loaded_stat : list)
 ATK Power : {math.floor(loaded_stat[1][0])}
 DEF Power : {math.floor(loaded_stat[1][1])}
 HP        : {math.floor(loaded_stat[1][2])}
-Level     : {player_monster_arr[player_monster][l_m_lv]}""")
+Level     : {player_monster_arr[player_monster][l_m_lv]}
+""")
 
 #display perintah player    
 def display_playerTurn(turn_counter : int,player_monster_arr : list,player_monster : int):
     print(f"""============ TURN {turn_counter} ({player_monster_arr[player_monster][l_m_type]}) ============
 1. Attack
 2. Use Potion
-3. Quit
-          """)
+3. Quit          
+""")
 
 #selector perintah player turn    
 def playerTurn(turn_counter : int,player_monster_arr : list,player_monster : int) -> int:
     tslct=int(input('Pilih perintah: '))
+    print()
     if tslct in [1,2,3]:
-        print()
         return tslct
     else:
         print('Tidak ada perintah\n')
@@ -213,7 +213,7 @@ def potion_menu(player_inv : list, turn_counter : int,player_monster_arr : list,
 
 #selector dari potion menu
 def potion_selector(i_counter : int) -> tuple[int,int]:
-    pselect=int(input('Pilih perintah: \n'))
+    pselect=int(input('Pilih perintah: '))
     print()
     if pselect not in range(1,i_counter+1):
         return potion_selector(i_counter)
@@ -292,9 +292,9 @@ def dmgCalc(hpx : int,damage : int) -> int:
     hp-=damage
     return hp
 
-def battle(username : str, role : str, coin : int,menu : str, stage : int, monsterdat : list, player_monster_arr : list, player_inv_arr : list, potion_check : list) -> tuple[str,str,int,bool]:
+def battle(username : str, role : str, coins : int,menu : str, stage : int, monsterdat : list, player_monster_arr : list, player_inv_arr : list, potion_check : list) -> tuple[str,str,int,bool]:
     #initiate buff array
-    coins=int(coin)
+    coin=int(coins)
     buffs=[['atk','def'],[0,0]]
     #initiate damage taken and dealt
     damage_taken=0
@@ -333,9 +333,9 @@ def battle(username : str, role : str, coin : int,menu : str, stage : int, monst
     while command!=3 and fight:
         if command==1:
             p_attack=attackRNG(p_hol[1][1],p_hol[1][0])
-            print(p_attack)
+            # print(p_attack)
             (e_hp,Pdmg)=playerHit(monsterdat,player_monster_arr,enum,monster_number,e_hp,e_stat,e_level,p_attack)
-            print(Pdmg)
+            # print(Pdmg)
         if command==2:
             while True:
                 potion_command=minum_potion(potion_check,p_stat,p_hol,p_hp,player_inv_arr,potion_selector(potion_menu(player_inv_arr,turn,player_monster_arr,monster_number)),buffs)
@@ -344,9 +344,9 @@ def battle(username : str, role : str, coin : int,menu : str, stage : int, monst
                     command=playerTurn(turn,player_monster_arr,monster_number)
                     if command==1:
                         p_attack=attackRNG(p_hol[1][1],p_hol[1][0])
-                        print(p_attack)
+                        # print(p_attack)
                         (e_hp,Pdmg)=playerHit(monsterdat,player_monster_arr,enum,monster_number,e_hp,e_stat,e_level,p_attack)
-                        print(Pdmg)
+                        # print(Pdmg)
                         break
                     elif command==3:
                         break
@@ -360,9 +360,9 @@ def battle(username : str, role : str, coin : int,menu : str, stage : int, monst
             win=True
             break
         e_attack=attackRNG(e_hol[1][1],e_hol[1][0])
-        print(e_attack)
+        # print(e_attack)
         (p_hp,Admg)=AITurn(turn,monsterdat,player_monster_arr,enum,monster_number,p_stat,p_hp,e_attack,buffs)
-        print(Admg)
+        # print(Admg)
         damage_taken=Admg
         damage_dealt=Pdmg
         if p_hp<=0:
@@ -385,22 +385,22 @@ def battle(username : str, role : str, coin : int,menu : str, stage : int, monst
         else : #stage==0
             gained=ocRNG()
         print(f'Kamu berhasil menang dan mendapatkan OC sebanyak {gained}.\n')
-        coins+=gained
+        coin+=gained
         if menu=='ARENA':
-            return coins,win,damage_dealt,damage_taken,gained
+            return coin,win,damage_dealt,damage_taken,gained
         else:
-            return username,role,coins
+            return username,role,coin
     elif not fight:
         gained=0
         print('Kamu mengakhiri pertandingan.\n')
         if menu=='ARENA':
             return coins,win,damage_dealt,damage_taken,gained
         else:
-            return username,role,coins
+            return username,role,coin
     else:
         gained=0
         print(f'Sayang sekali, kamu telah dikalahkan oleh {monsterdat[enum][m_type]}.\n')
         if menu=='ARENA':
             return coins,win,damage_dealt,damage_taken,gained
         else:
-            return username,role,coins
+            return username,role,coin

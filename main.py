@@ -86,6 +86,7 @@ while not(berhenti):
         potion_check=[False,False,False]
         #change item in item_inventory from mobile inventory 
         F08.ubah_potion(item_inventory,userid,player_inv_arr)
+        # print(item_inventory)
         #unload
         user_monster=[['monster_id','monster_level']]
         player_monster_arr=[['type','atk','def','hp','lv']]
@@ -102,21 +103,44 @@ while not(berhenti):
       if role == "agent":
         #find uid
         userid=testloader.get_uid(user_data,username)
-        if not loaded: 
-          #load datas to mobile inventory
-          player_monster_arr=(testloader.monster_inventory(monster_data,testloader.filter_monster(monster_inventory,userid,user_monster),player_monster_arr))
-          player_inv_arr=(testloader.filter_item(item_inventory,userid,player_inv_arr))
-          loaded=True
-        (username, role, coin) = (F09.arena(username, role, coin, menu, monster_data, player_monster_arr, player_inv_arr, potion_check))
-        #reset potion states
-        potion_check=[False,False,False]
-        #change item in item_inventory from mobile inventory 
-        F08.ubah_potion(item_inventory,userid,player_inv_arr)
-        #unload
-        user_monster=[['monster_id','monster_level']]
-        player_monster_arr=[['type','atk','def','hp','lv']]
-        player_inv_arr=[['type','quantity']]
-        loaded=False
+        stage=1
+        alive=True
+        total_taken=0
+        total_dealt=0
+        total_oc=0
+        while (not stage>5) and alive:
+          if not loaded: 
+            #load datas to mobile inventory
+            player_monster_arr=(testloader.monster_inventory(monster_data,testloader.filter_monster(monster_inventory,userid,user_monster),player_monster_arr))
+            player_inv_arr=(testloader.filter_item(item_inventory,userid,player_inv_arr))
+            loaded=True
+          (username,role,coin,damage_taken,damage_dealt,win,gained) = (F09.arena(username, role, coin, menu, monster_data, player_monster_arr, player_inv_arr, potion_check, stage))
+          #reset potion states
+          potion_check=[False,False,False]
+          #change item in item_inventory from mobile inventory 
+          F08.ubah_potion(item_inventory,userid,player_inv_arr)
+          #unload
+          user_monster=[['monster_id','monster_level']]
+          player_monster_arr=[['type','atk','def','hp','lv']]
+          player_inv_arr=[['type','quantity']]
+          loaded=False
+          if win:
+            stage+=1
+            print(f'Lanjut ke stage {stage}.\n')
+            total_taken+=damage_taken
+            total_dealt+=damage_dealt
+            total_oc+=gained
+          else:
+            alive=False
+            total_taken+=damage_taken
+            total_dealt+=damage_dealt
+            total_oc+=gained
+        print(f"""============== STATS ==============
+    Total hadiah      : {total_oc} OC
+    Jumlah stage      : {stage-1}
+    Damage diberikan  : {total_dealt}
+    Damage diterima   : {total_taken}
+    """)
       elif role=='admin':
         print("Maaf, Anda bukan seorang agen! Anda tidak memiliki izin untuk menggunakan perintah ini.")
     else:

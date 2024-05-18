@@ -5,7 +5,7 @@ u_id=0
 u_n=1
 u_m_id=1
 u_i_type=1
-u_i_q=0
+u_i_q=2
 u_m_lv=2
 
 m_id=0
