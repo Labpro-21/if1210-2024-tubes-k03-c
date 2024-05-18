@@ -52,13 +52,13 @@ def tambah_monster():
       print("Masukkan input bertipe Integer, coba lagi!")
   
   while True:
-    def_power = input(">>> Masukkan DEF Power (0-500) : ")
+    def_power = input(">>> Masukkan DEF Power (0-50) : ")
     if def_power.isdigit():
       def_power = int(def_power)
-      if 0 <= def_power <= 500:
+      if 0 <= def_power <= 50:
         break
       else:
-        print("DEF Power harus bernilai 0-500, coba lagi!")
+        print("DEF Power harus bernilai 0-50, coba lagi!")
     else:
       print("Masukkan input bertipe Integer, coba lagi!")
     
