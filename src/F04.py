@@ -2,7 +2,7 @@ def help(username,role):
     print ("")
     print ("="*10+"HELP"+"="*10)
     print ("")
-    if role == "Agent":
+    if role == "agent":
         print (f"Halo {role} {username} Kamu memanggil command HELP. Kamu memilih jalan yang benar, semoga kamu tidak sesat kemudian. Berikut adalah hal-hal yang dapat kamu lakukan sekarang:")
         print (" "*5+"1. Logout : Keluar dari akun yang sedang digunakan")
         print (" "*5+"2. Monster : Melihat owca-dex yang dimiliki oleh Agent")
@@ -12,7 +12,7 @@ def help(username,role):
         print (" "*5+"6. Shop : Tempat Agent membeli monster dan potion.")
         print (" "*5+"7. Laboratory : Upgrade monster yang dimiliki di inventory")
         print (" "*5+"8. Save : Menyimpan data game")
-    elif role == "Admin":
+    elif role == "admin":
         print (f"Halo {role} Berikut adalah hal-hal yang dapat kamu lakukan:")
         print (" "*5+"1. Logout : Keluar dari akun yang sedang digunakan")
         print (" "*5+"2. Shop Management : Melakukan manajemen pada SHOP sebagai tempat jual beli peralatan Agent")
