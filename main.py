@@ -4,14 +4,14 @@ sys.path.append('src')
 import B04, F01, F02, F03, F04, F07, F08, F09, F10, F11, F12, F13, F14, F15, F16
 import operateCSV, testloader
 
-# user_data, monster_data, item_inventory, item_shop, monster_inventory, monster_shop = F14.load()
+user_data, monster_data, item_inventory, item_shop, monster_inventory, monster_shop = F14.load()
 
-user_data = operateCSV.baca_csv(r"data\user.csv")
-monster_data = operateCSV.baca_csv(r'data\monster.csv')
-item_inventory = operateCSV.baca_csv(r'data\item_inventory.csv')
-item_shop = operateCSV.baca_csv(r'data\item_shop.csv')
-monster_inventory = operateCSV.baca_csv(r'data\monster_inventory.csv')
-monster_shop = operateCSV.baca_csv(r'data\monster_shop.csv')
+# user_data = operateCSV.baca_csv(r"data\user.csv")
+# monster_data = operateCSV.baca_csv(r'data\monster.csv')
+# item_inventory = operateCSV.baca_csv(r'data\item_inventory.csv')
+# item_shop = operateCSV.baca_csv(r'data\item_shop.csv')
+# monster_inventory = operateCSV.baca_csv(r'data\monster_inventory.csv')
+# monster_shop = operateCSV.baca_csv(r'data\monster_shop.csv')
 
 #dependencies array for loading datas
 user_monster=[['monster_id','monster_level']]
@@ -162,11 +162,11 @@ while not(berhenti):
         coin, monster_inventory = B04.jackpot(username, coin)
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
-  # elif (menu == "SAVE"):
-  #   F15.save(item_inventory, item_shop, monster_inventory, monster_shop, monster_data, user_data)
+  elif (menu == "SAVE"):
+    F15.save(item_inventory, item_shop, monster_inventory, monster_shop, monster_data, user_data)
 
-  # elif (menu == "EXIT"):
-  #   F16.exit_program(item_inventory, item_shop, monster_inventory, monster_shop, monster_data, user_data)
+  elif (menu == "EXIT"):
+    F16.exit_program(item_inventory, item_shop, monster_inventory, monster_shop, monster_data, user_data)
 
   else:
     print("Perintah tidak dikenal.")
