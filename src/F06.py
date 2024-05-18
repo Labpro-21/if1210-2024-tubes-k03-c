@@ -2,7 +2,7 @@ import operateCSV
 
 def potion():
     # search monster inventory by user id
-    item_monster = operateCSV.baca_csv(r"data\monster_inventory.csv")
+    item_monster = operateCSV.baca_csv(r"data\file_csv\monster_inventory.csv")
     for row in user_data: # cek tiap baris dari data 'user.csv'
         atk_power       = row[2]
         def_power       = row[3]

@@ -1,19 +1,19 @@
 import operateCSV
 import testloader
 import math
-import globalfunc
+import glbfunc
 
 def finventory():
     user_id = 1
     monster_id = 2
-    item_user = testloader.get_uid(operateCSV.baca_csv(r"data\user.csv"), user_id)
+    item_user = testloader.get_uid(operateCSV.baca_csv(r"data\file_csv\user.csv"), user_id)
     nama_user = item_user[1]
     coin_user = item_user[4]
 
     # search monster by user id
-    item_monster = testloader.filter_monster(operateCSV.baca_csv(r"data\monster.csv"), monster_id)
+    item_monster = testloader.filter_monster(operateCSV.baca_csv(r"data\file_csv\monster.csv"), monster_id)
     # search monster inventory by user id
-    items_monster_inventory = testloader.monster_inventory(operateCSV.baca_csv(r"data\monster_inventory.csv"), user_id)
+    items_monster_inventory = testloader.monster_inventory(operateCSV.baca_csv(r"data\file_csv\monster_inventory.csv"), user_id)
     monster_id = item_monster[1]
     arr_list_inventory = []
     no_urut = 1
@@ -23,8 +23,8 @@ def finventory():
         arr_item_inventory = [no_urut, user_id, "monster", monster_id, '' ]
         arr_list_inventory.append(arr_item_inventory)
         no_urut += 1
-     # search monster inventory by user id
-    items_inventory = testloader.filter_item(operateCSV.baca_csv(r"data\item_inventory.csv"), user_id)
+    # search monster inventory by user id
+    items_inventory = testloader.filter_item(operateCSV.baca_csv(r"data\file_csv\item_inventory.csv"), user_id)
     type1 = item_monster[1]
     for j in items_inventory :
         type1 = j[1]
@@ -41,11 +41,11 @@ def finventory():
         type_id     = item_inv[4]
     # ---------------------------------------
         if type_inv == "monster" :
-            res_monster = testloader.filter_monster(operateCSV.baca_csv(r"data\monster.csv"), monster_id)
+            res_monster = testloader.filter_monster(operateCSV.baca_csv(r"data\file_csv\monster.csv"), monster_id)
             print_monster +=f'{no_urut}. Monster (Name : {res_monster[1]}, Lvl : , Hp : {res_monster[4]})'
     
         elif type_inv == "potion" :
-            res_potion = testloader.filter_item(operateCSV.baca_csv(r"data\item_inventory.csv"), user_id)
+            res_potion = testloader.filter_item(operateCSV.baca_csv(r"data\file_csv\item_inventory.csv"), user_id)
             for item_res_potion in res_potion :
                 type_posion = ""
                 type_qty = "" 
@@ -75,7 +75,7 @@ def finventory():
     monster_id  = res_item_inventory[3]
     type_id     = res_item_inventory[4]    
     if type_inv == "monster" :
-        item_monster = testloader.filter_monster(operateCSV.baca_csv(r"data\monster.csv"), monster_id)
+        item_monster = testloader.filter_monster(operateCSV.baca_csv(r"data\file_csv\monster.csv"), monster_id)
         print(f"""
     Monster
     Name        :{item_monster[1]})
@@ -85,7 +85,7 @@ def finventory():
     Level       :
         """)
     elif type_inv == "potion" :
-        items_inventory = testloader.filter_item(operateCSV.baca_csv(r"data\item_inventory.csv"), user_id) 
+        items_inventory = testloader.filter_item(operateCSV.baca_csv(r"data\file_csv\item_inventory.csv"), user_id) 
         print(f"""
     Potion
     Type        : {glbfunc.ket_potion(items_inventory[0][1].lower())}
