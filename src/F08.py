@@ -333,7 +333,9 @@ def battle(username : str, role : str, coin : int,menu : str, stage : int, monst
     while command!=3 and fight:
         if command==1:
             p_attack=attackRNG(p_hol[1][1],p_hol[1][0])
+            print(p_attack)
             (e_hp,Pdmg)=playerHit(monsterdat,player_monster_arr,enum,monster_number,e_hp,e_stat,e_level,p_attack)
+            print(Pdmg)
         if command==2:
             while True:
                 potion_command=minum_potion(potion_check,p_stat,p_hol,p_hp,player_inv_arr,potion_selector(potion_menu(player_inv_arr,turn,player_monster_arr,monster_number)),buffs)
@@ -342,11 +344,14 @@ def battle(username : str, role : str, coin : int,menu : str, stage : int, monst
                     command=playerTurn(turn,player_monster_arr,monster_number)
                     if command==1:
                         p_attack=attackRNG(p_hol[1][1],p_hol[1][0])
+                        print(p_attack)
                         (e_hp,Pdmg)=playerHit(monsterdat,player_monster_arr,enum,monster_number,e_hp,e_stat,e_level,p_attack)
+                        print(Pdmg)
                         break
                     elif command==3:
                         break
-                else: 
+                else:
+                    Pdmg=0 
                     break
         if command==3:
             fight=False
@@ -355,7 +360,9 @@ def battle(username : str, role : str, coin : int,menu : str, stage : int, monst
             win=True
             break
         e_attack=attackRNG(e_hol[1][1],e_hol[1][0])
+        print(e_attack)
         (p_hp,Admg)=AITurn(turn,monsterdat,player_monster_arr,enum,monster_number,p_stat,p_hp,e_attack,buffs)
+        print(Admg)
         damage_taken=Admg
         damage_dealt=Pdmg
         if p_hp<=0:
