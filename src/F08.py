@@ -69,11 +69,11 @@ def monsterlvRNG() -> int:
         r_lv=1
     elif chance<800000: #chance 20%
         r_lv=2
-    elif chance<950000: #chance 15%
+    elif chance<900000: #chance 10%
         r_lv=3
-    elif chance<999999: #chance 4.9999%
+    elif chance<975000: #chance 7.5%
         r_lv=4
-    else: #chance==1000000 #chance 0.0001%
+    else: #chance==1000000 #chance 2.5%
         r_lv=5
     return r_lv       
 
@@ -82,18 +82,17 @@ def attackRNG(low : int,high : int) -> int:
     return F00.RNG(low,high)
 
 #menentukan rng OC
-def ocRNG() -> int:
-    chance=chanceRNG()
-    if chance<600000: #chance 60%
+def ocRNG(level : int) -> int:
+    if level==1: #chance 60%
         duit=F00.RNG(1,30)
-    elif chance<800000: #chance 20%
+    elif level==2: #chance 20%
         duit=F00.RNG(31,50)
-    elif chance<950000: #chance 15%
+    elif level==3: #chance 10%
         duit=F00.RNG(51,90)
-    elif chance<999999: #chance 4.9999%
+    elif level==4: #chance 7.5%
         duit=F00.RNG(91,170)
-    else: #chance==1000000 #chance 0.0001%
-        duit-F00.RNG(171,330)
+    else: #level==5 chance 2.5%
+        duit=F00.RNG(171,330)    
     return duit
 
 #menampilkan musuh
@@ -363,8 +362,8 @@ def battle(username : str, role : str, coins : int,menu : str, stage : int, mons
         # print(e_attack)
         (p_hp,Admg)=AITurn(turn,monsterdat,player_monster_arr,enum,monster_number,p_stat,p_hp,e_attack,buffs)
         # print(Admg)
-        damage_taken=Admg
-        damage_dealt=Pdmg
+        damage_taken+=Admg
+        damage_dealt+=Pdmg
         if p_hp<=0:
             win=False
             break
@@ -383,7 +382,7 @@ def battle(username : str, role : str, coins : int,menu : str, stage : int, mons
         elif stage==5:
             gained=330
         else : #stage==0
-            gained=ocRNG()
+            gained=ocRNG(e_level)
         print(f'Kamu berhasil menang dan mendapatkan OC sebanyak {gained}.\n')
         coin+=gained
         if menu=='ARENA':

@@ -126,7 +126,10 @@ while not(berhenti):
           loaded=False
           if win:
             stage+=1
-            print(f'Lanjut ke stage {stage}.\n')
+            if stage>5:
+              print('Selamat, kamu berhasil menamatkan sesi Arena!!!')
+            else: #stage<=5 and stage>0
+              print(f'Lanjut ke stage {stage}.\n')
             total_taken+=damage_taken
             total_dealt+=damage_dealt
             total_oc+=gained
