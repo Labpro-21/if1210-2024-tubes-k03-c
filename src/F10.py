@@ -68,11 +68,11 @@ def beli_shop(beli, username, coin):
         break
     if index == -1:
       print("Monster dengan ID tersebut tidak ditemukan.")
-      return
+      return user_data, monster_inventory, monster_shop_data, coin
     
-    if int(monster_shop_data[index][2]) > coin:
+    if int(monster_shop_data[index][2]) > int(coin):
       print("OC-mu tidak cukup.")
-      return
+      return user_data, monster_inventory, monster_shop_data, coin
 
     if (int(monster_shop_data[index][1]) > 0):
       monster_name = ""
@@ -84,7 +84,7 @@ def beli_shop(beli, username, coin):
       for monster_entry in monster_inventory[1:]:
         if int(monster_entry[0]) == int(user_id) and monster_entry[1] == id_monster:
           print(f"Monster {monster_name} sudah ada dalam inventory-mu! Pembelian dibatalkan.")
-          return
+          return user_data, monster_inventory, monster_shop_data, coin
 
       print(f"Berhasil membeli item: {monster_name}. Item sudah masuk ke inventory-mu!")
       monster_inventory.append([user_id, id_monster, 1])
@@ -94,7 +94,7 @@ def beli_shop(beli, username, coin):
         if user_entry[1] == username_login:
           user_entry[4] = str(int(user_entry[4]) - int(monster_shop_data[index][1]))
 
-      coin -= int(monster_shop_data[index][2])
+      coin = int(coin) - int(monster_shop_data[index][2])
 
       return user_data, monster_inventory, monster_shop_data, coin
       # operateCSV.tulis_csv(r"data\monster_inventory.csv", monster_inventory)
@@ -118,12 +118,12 @@ def beli_shop(beli, username, coin):
         break
     else:
       print("Potion dengan ID tersebut tidak ditemukan.")
-      return
+      return user_data, item_inventory, item_shop, coin
 
     total = jumlah*int(item_shop[index][2])
-    if int(total) > coin:
+    if int(total) > int(coin):
       print("OC-mu tidak cukup.")
-      return
+      return user_data, item_inventory, item_shop, coin
     
     if int(item_shop[index][1]) >= jumlah:
       print(f"Berhasil membeli item: {jumlah} Potion of {potion_fixed[index-1]}. Item sudah masuk ke inventory-mu!")
@@ -145,7 +145,7 @@ def beli_shop(beli, username, coin):
       #   if user_entry[1] == username_login:
       #     user_entry[4] = str(int(user_entry[4]) - total)
 
-      coin -= total
+      coin = int(coin) - total
 
       return user_data, item_inventory, item_shop, coin
       # operateCSV.tulis_csv(r"data\item_inventory.csv", item_inventory)

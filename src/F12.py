@@ -73,11 +73,11 @@ def tambah(tambah):
     # Mengecek apakah indeks ditemukan
     if monster_index is None:
       print("ID monster tidak valid.")
-      return
+      return monster_shop_data
 
     if monster_id in id_monster_shop: # mengecek apakah monster_id ada dalam daftar monster yang belum ada di toko
       print("Monster sudah ada di toko.")
-      return
+      return monster_shop_data
     
     stock = input(">>> Masukkan stok awal: ")
     price = input(">>> Masukkan harga: ")
@@ -101,6 +101,7 @@ def tambah(tambah):
     potion_id = input(">>> Masukkan id potion: ")
     if potion_id in [potion[0] for potion in potion_shop_data]: 
       print("Potion sudah ada di toko.")
+      return potion_shop_data
     else:
       stock = input(">>> Masukkan stok awal: ")
       price = input(">>> Masukkan harga: ")
@@ -124,7 +125,7 @@ def ubah(ubah):
         break
     if index == -1:
       print("Monster dengan ID tersebut tidak ditemukan.")
-      return
+      return monster_shop_data
     stok_baru = input("Masukkan stok baru: ")
     harga_baru = input("Masukkan harga baru: ")
 
@@ -161,7 +162,7 @@ def ubah(ubah):
     index = int(id_potion)  # Karena ID berdasarkan urutan dari atas ke bawah
     if index < 1 or index >= len(potion_shop_data):
         print("Potion dengan ID tersebut tidak ditemukan.")
-        return
+        return potion_shop_data
     stok_baru = input("Masukkan stok baru: ")
     harga_baru = input("Masukkan harga baru: ")
     
@@ -197,7 +198,7 @@ def hapus(hapus):
         break
     if index == -1:
       print("Monster dengan ID tersebut tidak ditemukan.")
-      return
+      return monster_shop_data
 
     monster_id = monster_shop_data[index][0]
     monster_name = ""
@@ -223,7 +224,7 @@ def hapus(hapus):
     index = int(id_potion)
     if index < 1 or index >= len(potion_shop_data):
       print("Potion dengan ID tersebut tidak ditemukan.")
-      return
+      return potion_shop_data
     print("Apakah Anda yakin ingin menghapus", potion_shop_data[index][0],"dari shop (y/n)? ", end="")
     hapus_confirm = input()
     if (hapus_confirm.lower() == 'y'):
