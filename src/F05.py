@@ -8,6 +8,8 @@ def fmonster () :
     atk_power_max   = (item_monster[2] * 2) - (item_monster[2] * 0.3) 
     def_power       = item_monster[3]
     hp              = item_monster[4]
+    if atk_power_max > 100 :
+        atk_power_max = 100
     return var_type, atk_power_min, atk_power_max, def_power, hp
 
 def flevel () :
