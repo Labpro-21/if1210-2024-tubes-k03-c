@@ -1,7 +1,6 @@
 import operateCSV
 
 def login(user, role_type, coin):
-  print(">>> LOGIN")
   if user:
     print("Login gagal!")
     print(f"Anda telah login dengan username {user}, silakan lakukan logout sebelum melakukan login")

@@ -32,7 +32,6 @@ while not(berhenti):
     (username, monster_id, role, coin) = (F01.register(username, user_data, monster_data), 'agent', 0)
   elif menu == 'LOGIN':
     (username, role, coin) = (F02.login(username, role, coin))
-    print(username, role, coin)
   elif menu == 'LOGOUT':
     (username, role, coin) = (F03.logout(username, role, coin))
   elif menu == "HELP":
@@ -49,7 +48,6 @@ while not(berhenti):
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
   elif (menu == "SHOP"):
-    print(">>> SHOP")
     print()
     if username != '':
       if role == "admin":
@@ -152,7 +150,6 @@ while not(berhenti):
   elif (menu == "MONSTER"):
     if username != '':
       if role == "admin":
-        print(">>> MONSTER")
         (username, role, coin, monster_data) = (F13.monster_management(username, role, coin))
       elif role=='agent':
         print("Maaf, Anda bukan seorang admin! Anda tidak memiliki hak untuk menggunakan perintah ini.")
@@ -161,7 +158,6 @@ while not(berhenti):
   elif (menu == "JACKPOT"):
     if username != '':
       if role == "agent":
-        print(">>> JACKPOT")
         coin, monster_inventory = B04.jackpot(username, coin)
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
