@@ -25,7 +25,6 @@ def get_valid_password():
             print("Password harus terdiri dari minimal 8 karakter!")
 
 def register(user, user_data, monster_data):
-  print(">>> REGISTER")
   if user: # Jika user telah login
     print("Register gagal!")
     print(f"Anda telah login dengan username {user}, silakan lakukan 'LOGOUT' sebelum melakukan register.")

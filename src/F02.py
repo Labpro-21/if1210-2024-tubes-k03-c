@@ -1,14 +1,13 @@
 import operateCSV
 
 def login(user, role_type, coin):
-  print(">>> LOGIN")
   if user:
     print("Login gagal!")
     print(f"Anda telah login dengan username {user}, silakan lakukan logout sebelum melakukan login")
     return user
 
   else: # belum login
-    user_data = operateCSV.baca_csv(r"data\user.csv")
+    user_data = operateCSV.baca_csv(r"data\file_csv\user.csv")
 
     berhasil = False
     while not(berhasil):
