@@ -13,8 +13,8 @@ def login(user, role_type, coin, user_data):
     while not(berhasil):
       username = input("Masukkan username: ")
       password = input("Masukkan password: ")
-      for row in user_data: # cek tiap baris dari data 'user.csv'
-        if username in row[1]:
+      for row in user_data[1:]:
+        if username == row[1]:
           if password == row[2]:
               role = row[3]
               coin = row[4]
