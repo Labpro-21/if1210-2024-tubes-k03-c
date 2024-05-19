@@ -65,9 +65,7 @@ def finventory(user_data:list, username:str, puser_id : int,
             (nama_type, type_qty) = testloader.filter_potion(type_id, puser_id, pdata_item_inventory)
             print_monster += f'\n{no_urut}. Potion (Type: {nama_type}, Qty: {type_qty})'
             no_urut += 1
-
-    print(print_monster)
-
+            
     berhenti = False
     print_monster+='\nKetikkan 0 untuk keluar'
     while not(berhenti):
