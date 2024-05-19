@@ -60,7 +60,7 @@ while not(berhenti):
                       monster_inventory, storage,user_inventory, item_inventory,
                       monster_data )
       elif role=='admin':
-        print("Maaf, Anda bukan seorang agen! Anda tidak memiliki izin untuk menggunakan perintah ini.")
+        print("Maaf, Anda bukan seorang agent! Anda tidak memiliki izin untuk menggunakan perintah ini.")
     else :    
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
   
@@ -78,7 +78,7 @@ while not(berhenti):
       if role == "agent":
         (username, role, coin, user_data, monster_inventory) = (F11.laboratory(username, role, coin, user_data, monster_inventory, monster_data))
       elif role=='admin':
-        print("Maaf, Anda bukan seorang agen! Anda tidak memiliki izin untuk menggunakan perintah ini.")
+        print("Maaf, Anda bukan seorang agent! Anda tidak memiliki izin untuk menggunakan perintah ini.")
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
 
@@ -109,7 +109,7 @@ while not(berhenti):
         loaded=False
         # print(player_inv_arr)
       elif role=='admin':
-        print("Maaf, Anda bukan seorang agen! Anda tidak memiliki izin untuk menggunakan perintah ini.")
+        print("Maaf, Anda bukan seorang agent! Anda tidak memiliki izin untuk menggunakan perintah ini.")
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
 
@@ -160,7 +160,7 @@ while not(berhenti):
     Damage diterima   : {total_taken}
     """)
       elif role=='admin':
-        print("Maaf, Anda bukan seorang agen! Anda tidak memiliki izin untuk menggunakan perintah ini.")
+        print("Maaf, Anda bukan seorang agent! Anda tidak memiliki izin untuk menggunakan perintah ini.")
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
 
@@ -176,6 +176,8 @@ while not(berhenti):
     if username != '':
       if role == "agent":
         coin, monster_inventory = B04.jackpot(username, coin, user_data, monster_data, monster_inventory)
+      elif role == 'admin':
+        print("Maaf, Anda bukan seorang agent! Anda tidak memiliki izin untuk menggunakan perintah ini.")
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
   elif (menu == "SAVE"):
