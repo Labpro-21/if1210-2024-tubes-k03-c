@@ -31,7 +31,6 @@ while not(berhenti):
   if menu == 'REGISTER':
     (username, monster_id, user_data, monster_inventory) = (F01.register(username, user_data, monster_data, monster_inventory))
     role, coin = 'agent', 0
-    print(username, monster_id, user_data, monster_inventory)
   elif menu == 'LOGIN':
     (username, role, coin) = (F02.login(username, role, coin))
   elif menu == 'LOGOUT':
