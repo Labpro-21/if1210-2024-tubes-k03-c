@@ -1,17 +1,13 @@
-import operateCSV
+def Strength_Potion(atk_power):
+    atk_modifier = atk_power + (0.05 * (atk_power))
+    return atk_modifier
 
-def potion():
-    # search monster inventory by user id
-    item_monster = operateCSV.baca_csv(r"data\file_csv\monster_inventory.csv")
-    for row in user_data: # cek tiap baris dari data 'user.csv'
-        atk_power       = row[2]
-        def_power       = row[3]
-        hp              = row[4]
-        strength_potion     = atk_power + (atk_power * 0.05)
-        resilience_potion   = def_power + (def_power * 0.05)
-        if hpx > hp :
-            healing_potion  = hp + (hp *0.25)
-        else :
-            healing_potion  = hpx + (hpx *0.25)
-        
-        return strength_potion, resilience_potion, healing_potion    
+def Resilience_Potion(def_power):
+    def_modifier = def_power + (0.25 * (def_power))
+    return def_modifier
+
+def Healing_Potion(hp):
+    hp_modifier += (0.25 * hp)
+    if hp_modifier > hp:
+        hp_modifier = hp
+    return hp_modifier
