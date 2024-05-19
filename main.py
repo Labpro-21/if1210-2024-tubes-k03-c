@@ -38,7 +38,9 @@ while not(berhenti):
     if username != '':
       F04.help(username,role)
     else:
-      print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu.\n")  
+        print ("Kamu belum login sebagai role apapun. Silahkan login terlebih dahulu.")
+        print (" "*5+"1. Login : Masuk ke dalam akun yang sudah terdaftar")
+        print (" "*5+"2. Register : Membuat akun baru")
   elif (menu == "INVENTORY") :
     if username != "" :
       if role == "agent":
