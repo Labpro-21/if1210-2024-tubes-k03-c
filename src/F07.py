@@ -9,7 +9,8 @@ def finventory(user_data:list, username:str, puser_id : int,
                 monster_invent : list, storage : list, user_inventory : list, 
                 pdata_item_inventory : list, pmonster_data : list ):
 # tampilan untuk header pada fungsi 
-    item_user = testloader.get_uid(user_data, username)
+    user_id = testloader.get_uid(user_data, username)
+    item_user = glbfunc.search_user(user_data, user_id)
     nama_user = item_user[1]
     coin_user = item_user[4]
 
