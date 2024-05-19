@@ -16,10 +16,10 @@ m_gua=3
 m_hp=4
 m_lv=1
 
-monster=operateCSV.baca_csv(r'data\monster.csv')
-monstinv=operateCSV.baca_csv(r'data\monster_inventory.csv')
-storage=operateCSV.baca_csv(r'data\item_inventory.csv')
-userdat=operateCSV.baca_csv(r'data\user.csv')
+#monster=operateCSV.baca_csv(r'data\monster.csv')
+#monstinv=operateCSV.baca_csv(r'data\monster_inventory.csv')
+#storage=operateCSV.baca_csv(r'data\item_inventory.csv')
+#userdat=operateCSV.baca_csv(r'data\user.csv')
 
 
 #filter monster berdasarkan data user
