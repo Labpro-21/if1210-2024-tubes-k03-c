@@ -1,25 +1,22 @@
-import testloader
-import operateCSV
-def fmonster () :
-    # search monster by user id
-    item_monster    = testloader.filter_monster(operateCSV.baca_csv(r"data\file_csv\monster.csv"), monster_id)
-    var_type        = item_monster[1]
-    atk_power_min   = (item_monster[2]) - (item_monster[2] * 0.3)
-    atk_power_max   = (item_monster[2] * 2) - (item_monster[2] * 0.3) 
-    def_power       = item_monster[3]
-    hp              = item_monster[4]
-    if atk_power_max > 100 :
-        atk_power_max = 100
-    return var_type, atk_power_min, atk_power_max, def_power, hp
-
-def flevel () :
+def level_modifier(level : int, attribute : int ):
     for level in range(1, 6) :
         if level == 1:
-            atk_power   = item_monster[2]
-            def_power   = item_monster[3]
-            hp          = item_monster[4]
-        else:
-            level_modifier = i * (10 / 100)
-            atk_power = int(item_monster[2] * (1 + level_modifier))
-            def_power = item_monster[3]
-            return level_modifier
+            attribute = attribute
+        else :
+            attribute += attribute*(((level - 1)*10)/100)
+        return attribute
+
+def attack_power(atk_power : int):
+    min_power = atk_power * 0.7
+    max_power = atk_power * 1.3
+    if max_power > 100 :
+        max_power = 100 
+    return max_power, min_power
+
+def atk_calculation(atk_power : int, def_power : int):
+    atk_power_modifier = atk_power - (atk_power * (def_power*0.01))
+    return atk_power_modifier
+
+def hp_calculation(atk_power : int, hp : int, def_power : int):
+    hp_modifier = hp - atk_calculation(atk_power, def_power)
+    return hp_modifier
