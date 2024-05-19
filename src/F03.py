@@ -1,6 +1,6 @@
 def logout(user, role, coin):
     username = ""
     role = ""
-    coin = 0
+    coin = ""
     print("Berhasil logout!")
     return  username, role, coin

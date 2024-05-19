@@ -30,7 +30,7 @@ while not(berhenti):
   menu = input(">>> ").upper()
   if menu == 'REGISTER':
     (username, monster_id, user_data, monster_inventory) = (F01.register(username, user_data, monster_data, monster_inventory))
-    role, coin = 'agent', 0
+    role, coin = 'agent', '0'
   elif menu == 'LOGIN':
     (username, role, coin) = (F02.login(username, role, coin, user_data))
   elif menu == 'LOGOUT':
