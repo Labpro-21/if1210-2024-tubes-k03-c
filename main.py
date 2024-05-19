@@ -176,6 +176,7 @@ while not(berhenti):
 
   elif (menu == "EXIT"):
     F16.exit_program(username, coin, user_data, monster_data, monster_inventory, monster_shop, item_inventory, item_shop)
+    break
 
   else:
     print("Perintah tidak dikenal.")
