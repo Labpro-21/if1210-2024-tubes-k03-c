@@ -1,4 +1,5 @@
 import os
+import time
 from operateCSV import tulis_csv
 
 def save(username, coin, user_data, monster_data, monster_inventory, monster_shop, item_inventory, item_shop): 
@@ -8,9 +9,13 @@ def save(username, coin, user_data, monster_data, monster_inventory, monster_sho
 
     if os.path.exists(folder_path):
         print(f"Folder {folder_path} sudah ada.")
+        print("Saving....")
+        time.sleep(1)
     else :
         os.makedirs(folder_path)
         print(f"Membuat folder {folder_path}...")
+        print("Saving....")
+        time.sleep(1)
 
     for user_entry in user_data[1:]:
         if user_entry[1] == username:
