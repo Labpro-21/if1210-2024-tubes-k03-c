@@ -38,15 +38,31 @@ while not(berhenti):
     if username != '':
       F04.help(username,role)
     else:
-      print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu.\n")
-  elif menu == "INVENTORY":
-    if username != '':
-      if role == "agent":
-        F07.finventory()
-      elif role=='admin':
-        print("Maaf, Anda bukan seorang agen! Anda tidak memiliki izin untuk menggunakan perintah ini.")
-    else:
+      print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu.\n")  
+  elif (menu == "INVENTORY") :
+    if username == "" :
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
+    else :
+      user_monster=[['monster_id','monster_type','atk_power','def_power','hp']]
+      user_id         = testloader.get_uid(user_data, username) # untuk mendapatkan user_id
+      #strage
+      storage = testloader.get_storage(item_inventory, user_id, monster_data)
+      user_inventory=[]
+      #monster_list = 
+      F07.finventory(user_data, username, user_id,
+                    monster_data , user_monster, 
+                    monster_inventory, storage,user_inventory, item_inventory,
+                    monster_data )
+  
+  #elif menu == "INVENTORY":
+  #  if username != '':
+  #    if role == "agent":
+  #      F07.finventory()
+  #    elif role=='admin':
+  #      print("Maaf, Anda bukan seorang agen! Anda tidak memiliki izin untuk menggunakan perintah ini.")
+  # else:
+  #    print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
+  
   elif (menu == "SHOP"):
     print()
     if username != '':
