@@ -155,6 +155,11 @@ def beli_shop(beli, username, role, coin):
 
 
 def shop_currency(username, role, coin):
+  user_data = operateCSV.baca_csv(r"data\file_csv\user.csv")
+  monster_inventory = operateCSV.baca_csv(r"data\file_csv\monster_inventory.csv")
+  monster_shop = operateCSV.baca_csv(r"data\file_csv\monster_shop.csv")
+  item_shop = operateCSV.baca_csv(r"data\file_csv\item_shop.csv")
+  item_inventory = operateCSV.baca_csv(r"data\file_csv\item_inventory.csv")
   print("Irasshaimase! Selamat datang di SHOP!!")
   keluar = False
   while not keluar:

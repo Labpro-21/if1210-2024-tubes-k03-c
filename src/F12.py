@@ -246,6 +246,8 @@ def hapus(hapus, username, role, coin):
 
 
 def shop_management(username, role, coin):
+  item_shop = operateCSV.baca_csv(r"data\file_csv\item_shop.csv")
+  monster_shop = operateCSV.baca_csv(r"data\file_csv\monster_shop.csv")
   print(f"Irasshaimase! Selamat datang kembali, {username}!")
   keluar = False
   while not keluar:

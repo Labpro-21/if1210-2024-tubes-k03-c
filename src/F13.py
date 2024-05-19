@@ -90,6 +90,7 @@ def tambah_monster(username, role, coin):
 
 
 def monster_management(username, role, coin):
+  monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
   print("SELAMAT DATANG DI DATABASE PARA MONSTER !!!")
   print("1. Tampilkan semua Monster")
   print("2. Tambah Monster baru")
