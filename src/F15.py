@@ -1,64 +1,20 @@
 import os
-import time
+from operateCSV import tulis_csv
 
-def save_data_to_csv(data, folder_name):
-    # Membuat folder data jika belum ada
-    data_folder_path = os.path.join(os.getcwd(), "data")
-    if not os.path.exists(data_folder_path):
-        os.makedirs(data_folder_path)
-
-    # Memeriksa apakah folder_name tidak kosong
-    while True:
-        if folder_name == "":
-            print("Nama folder tidak boleh kosong!")
-            folder_name = input("Masukkan nama folder: ")
-        else:
-            break
-
-    # Membuat subfolder sesuai input pengguna
-    save_path = os.path.join(data_folder_path, folder_name)
-    if not os.path.exists(save_path):
-        os.makedirs(save_path)
-        print("Saving...")
-        time.sleep(2)
-        print(f"Membuat folder baru: {folder_name}")
-        time.sleep(1)
-    else:
-        if not os.listdir(save_path):
-            print(f"Folder '{folder_name}' ditemukan tetapi kosong.")
-            print("Menaruh file baru di dalam folder tersebut.")
-
-    # Menyimpan data ke dalam file CSV
-    for key, value in data.items():
-        file_path = os.path.join(save_path, f"{key}.csv")
-        with open(file_path, 'w') as file:
-            # Menulis headers
-            headers = ','.join(value[0].keys()) + '\n'
-            file.write(headers)
-
-            # Menulis data
-            for row in value:
-                line = ','.join(map(str, row.values())) + '\n'
-                file.write(line)
-        
-        print(f"Data dari variabel '{key}' berhasil disimpan dalam file '{key}.csv' di subfolder '{folder_name}'")
-
-# Contoh 6 variabel dengan data
-# Menyimpan data ke dalam folder data sesuai input pengguna
-
-def save(a,b,c,d,e,f):
+def save(user_data, monster_data, monster_inventory, monster_shop, item_inventory, item_shop): 
+    folder_parent = ".\data"
     folder_name = input("Masukkan nama folder: ")
-    data = {'item_inventory': a, 'item_shop': b, 'monster_inventory': c, 'monster_shop': d, 'monster': e, 'user': f}
-    save_data_to_csv(data, folder_name)
+    folder_path = os.path.join(folder_parent, folder_name)
 
-# Contoh penggunaan
-# save(var_1, var_2, var_3, var_4, var_5, var_6)
-
-# a = [{'id': '2', 'username': 'Asep_Spakbor', 'password': 'asepwow123', 'role': 'agent', 'oc': '8999'}]
-# b = [{'monster_id': '1', 'stock': '10', 'price': '500'}, {'monster_id': '2', 'stock': '4', 'price': '700'}, {'monster_id': '3', 'stock': '2', 'price': '1000'}, {'monster_id': '4', 'stock': '8', 'price': '550'}, {'monster_id': '5', 'stock': '7', 'price': '600'}]    
-# c = [{'type': 'strength', 'stock': '10', 'price': '50'}, {'type': 'resilience', 'stock': '5', 'price': '30'}, {'type': 'healing', 'stock': '3', 'price': '20'}]
-# d = [{'user_id': '2', 'monster_id': '1', 'level': '1'}, {'user_id': '2', 'monster_id': '2', 'level': '2'}, {'user_id': '3', 'monster_id': '2', 'level': '2'}, {'user_id': '3', 'monster_id': '3', 'level': '1'}, {'user_id': '4', 'monster_id': '4', 'level': '1'}, {'user_id': '5', 'monster_id': '5', 'level': '5'}, {'user_id': '2', 'monster_id': '3', 'level': '1'}]
-# e = [{'user_id': '2', 'type': 'strength', 'quantity': '5'}, {'user_id': '2', 'type': 'resilience', 'quantity': '3'}, {'user_id': '3', 'type': 'resilience', 'quantity': '7'}, {'user_id': '4', 'type': 'healing', 'quantity': '3'}, {'user_id': '5', 'type': 'strength', 'quantity': '20'}]
-# f = [{'monster_id': '1', 'stock': '10', 'price': '500'}, {'monster_id': '2', 'stock': '4', 'price': '700'}, {'monster_id': '3', 'stock': '2', 'price': '1000'}, {'monster_id': '4', 'stock': '8', 'price': '550'}, {'monster_id': '5', 'stock': '7', 'price': '600'}] 
-
-# save(a,b,c,d,e,f)
+    if os.path.exists(folder_path):
+        print(f"Folder {folder_path} sudah ada.")
+    else :
+        os.makedirs(folder_path)
+        print(f"Membuat folder {folder_path}...")
+    
+    tulis_csv(os.path.join(folder_parent, folder_name, "user.csv"), user_data)
+    tulis_csv(os.path.join(folder_parent, folder_name, "monster.csv"), monster_data)
+    tulis_csv(os.path.join(folder_parent, folder_name, "monster_shop.csv"), monster_shop)
+    tulis_csv(os.path.join(folder_parent, folder_name, "monster_inventory.csv"), monster_inventory)
+    tulis_csv(os.path.join(folder_parent, folder_name, "item_shop.csv"), item_shop)
+    tulis_csv(os.path.join(folder_parent, folder_name, "item_inventory.csv"), item_inventory)

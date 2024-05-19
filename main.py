@@ -162,10 +162,10 @@ while not(berhenti):
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
   elif (menu == "SAVE"):
-    F15.save(item_inventory, item_shop, monster_inventory, monster_shop, monster_data, user_data)
+    F15.save(user_data, monster_data, monster_inventory, monster_shop, item_inventory, item_shop)
 
   elif (menu == "EXIT"):
-    F16.exit_program(item_inventory, item_shop, monster_inventory, monster_shop, monster_data, user_data)
+    F16.exit_program(user_data, monster_data, monster_inventory, monster_shop, item_inventory, item_shop)
 
   else:
     print("Perintah tidak dikenal.")
