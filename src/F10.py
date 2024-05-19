@@ -86,17 +86,13 @@ def beli_shop(beli, username, role, coin):
       for monster_entry in monster_inventory[1:]:
         if int(monster_entry[0]) == int(user_id) and monster_entry[1] == id_monster:
           print(f"Monster {monster_name} sudah ada dalam inventory-mu! Pembelian dibatalkan.")
-          return username, role, coin, user_data, monster_inventory, monster_shop, item_inventory, item_shop
+          return username, role, coin, user_data, monster_inventory, monster_shop_data, item_inventory, item_shop
 
       print(f"Berhasil membeli item: {monster_name}. Item sudah masuk ke inventory-mu!")
       monster_inventory.append([user_id, id_monster, 1])
       monster_shop_data[index][1] = str(int(monster_shop_data[index][1]) - 1)
 
-      for user_entry in user_data[1:]:
-        if user_entry[1] == username_login:
-          user_entry[4] = str(int(user_entry[4]) - int(monster_shop_data[index][1]))
-
-      coin = int(coin) - int(monster_shop_data[index][2])
+      coin = str(int(coin) - int(monster_shop_data[index][2]))
 
       return username, role, coin, user_data, monster_inventory, monster_shop_data, item_inventory, item_shop
       # operateCSV.tulis_csv(r"data\monster_inventory.csv", monster_inventory)

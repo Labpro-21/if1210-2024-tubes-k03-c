@@ -41,8 +41,8 @@ def jackpot(username, coin):
   play_confirm = input().upper()
 
   if play_confirm == "Y":
-    if 400 <= user_oc:
-      user_oc -= 400
+    if 400 <= int(coin):
+      coin = int(coin) - 400
       all_item = []
       item1 = item_jackpot[F00.RNG(0,4)]
       item2 = item_jackpot[F00.RNG(0,4)]
@@ -100,9 +100,7 @@ def jackpot(username, coin):
             reward += 500
         print(f"{reward} OC telah ditambahkan ke akun Anda! ")
         
-        for user_entry in user_data[1:]:
-          if user_entry[1] == username_login:
-            user_entry[4] = str(int(user_entry[4]) + reward)
+        coin = int(coin) + reward
 
 
       return coin, monster_inventory
