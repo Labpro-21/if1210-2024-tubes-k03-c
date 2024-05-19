@@ -34,7 +34,11 @@ while not(berhenti):
   elif menu == 'LOGIN':
     (username, role, coin) = (F02.login(username, role, coin, user_data))
   elif menu == 'LOGOUT':
-    (username, role, coin) = (F03.logout(username, role, coin))
+    if username != "" :
+      (username, role, coin) = (F03.logout(username, role, coin))
+    else:
+      print("Logout gagal!")
+      print("Anda belum login, silahkan login terlebih dahulu sebelum melakukan logout")
   elif menu == "HELP":
     if username != '':
       F04.help(username,role)
