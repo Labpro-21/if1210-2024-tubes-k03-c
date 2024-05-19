@@ -29,7 +29,7 @@ def lihat_monster():
       print(f"{monster[0]:<2} | {monster[1]:<12} | {monster[2]:<9} | {monster[3]:<9} | {monster[4]:<4} | ")
 
 
-def tambah_monster():
+def tambah_monster(username, role, coin):
   monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
   print("Memulai pembuatan monster baru")
   while True:
@@ -100,7 +100,7 @@ def monster_management(username, role, coin):
     if (aksi == "1"):
       lihat_monster()
     elif (aksi == "2"):
-      username, role, coin, monster_data = tambah_monster()
+      username, role, coin, monster_data = tambah_monster(username, role, coin)
     elif (aksi == "3"):
       print("Dadah, sampai jumpa lagi!")
       keluar = True
