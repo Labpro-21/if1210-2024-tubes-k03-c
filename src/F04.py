@@ -21,7 +21,3 @@ def help(username,role):
         print (" "*5+"3. Monster : Melakukan manajemen pada monster, dapat menambah monster baru")
         print (" "*5+"4. Save : Menyimpan data game")
         print (" "*5+"5. Keluar : Yah.. selesai sudah")
-    else:
-        print ("Kamu belum login sebagai role apapun. Silahkan login terlebih dahulu.")
-        print (" "*5+"1. Login : Masuk ke dalam akun yang sudah terdaftar")
-        print (" "*5+"2. Register : Membuat akun baru")
