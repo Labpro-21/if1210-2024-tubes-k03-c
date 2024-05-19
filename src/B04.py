@@ -3,8 +3,8 @@ sys.path.append('src')
 
 import F00, operateCSV
 
-def jackpot(username, coin):
-  user_data = operateCSV.baca_csv(r"data\file_csv\user.csv")
+def jackpot(username, coin, user_data, monster_data, monster_inventory):
+  # user_data = operateCSV.baca_csv(r"data\file_csv\user.csv")
 
   username_login = username
 
@@ -17,9 +17,9 @@ def jackpot(username, coin):
       user_oc = int(user_entry[4])
       break
 
-  if user_id:
-    monster_inventory = operateCSV.baca_csv(r"data\file_csv\monster_inventory.csv")
-    monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
+  # if user_id:
+  #   monster_inventory = operateCSV.baca_csv(r"data\file_csv\monster_inventory.csv")
+  #   monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
   
   print("""
   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  

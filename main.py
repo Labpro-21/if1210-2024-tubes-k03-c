@@ -29,7 +29,9 @@ berhenti = False
 while not(berhenti):
   menu = input(">>> ").upper()
   if menu == 'REGISTER':
-    (username, monster_id, role, coin) = (F01.register(username, user_data, monster_data), 'agent', 0)
+    (username, monster_id, user_data, monster_inventory) = (F01.register(username, user_data, monster_data, monster_inventory))
+    role, coin = 'agent', 0
+    print(username, monster_id, user_data, monster_inventory)
   elif menu == 'LOGIN':
     (username, role, coin) = (F02.login(username, role, coin))
   elif menu == 'LOGOUT':
@@ -63,15 +65,15 @@ while not(berhenti):
     print()
     if username != '':
       if role == "admin":
-        (username, role, coin, monster_shop, item_shop) = (F12.shop_management(username, role, coin))
+        (username, role, coin, monster_shop, item_shop) = (F12.shop_management(username, role, coin, monster_data, monster_shop, item_shop))
       elif role =='agent':
-        (username, role, coin, user_data, monster_inventory, monster_shop, item_inventory, item_shop) = (F10.shop_currency(username, role, coin))
+        (username, role, coin, user_data, monster_inventory, monster_shop, item_inventory, item_shop) = (F10.shop_currency(username, role, coin, user_data, monster_data, monster_inventory, monster_shop, item_inventory, item_shop))
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
   elif (menu == "LABORATORY"):
     if username != '':
       if role == "agent":
-        (username, role, coin, user_data, monster_inventory) = (F11.laboratory(username, role, coin))
+        (username, role, coin, user_data, monster_inventory) = (F11.laboratory(username, role, coin, user_data, monster_inventory, monster_data))
       elif role=='admin':
         print("Maaf, Anda bukan seorang agen! Anda tidak memiliki izin untuk menggunakan perintah ini.")
     else:
@@ -162,7 +164,7 @@ while not(berhenti):
   elif (menu == "MONSTER"):
     if username != '':
       if role == "admin":
-        (username, role, coin, monster_data) = (F13.monster_management(username, role, coin))
+        (username, role, coin, monster_data) = (F13.monster_management(username, role, coin, monster_data))
       elif role=='agent':
         print("Maaf, Anda bukan seorang admin! Anda tidak memiliki hak untuk menggunakan perintah ini.")
     else:
@@ -170,7 +172,7 @@ while not(berhenti):
   elif (menu == "JACKPOT"):
     if username != '':
       if role == "agent":
-        coin, monster_inventory = B04.jackpot(username, coin)
+        coin, monster_inventory = B04.jackpot(username, coin, user_data, monster_data, monster_inventory)
     else:
       print("Anda belum masuk ke akun apapun, silakan login terlebih dahulu\n")
   elif (menu == "SAVE"):

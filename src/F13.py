@@ -21,16 +21,16 @@ def ambil_id_terbawah(monster_data):
     return maks(ids) + 1 
 
 
-def lihat_monster():
-  monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
+def lihat_monster(monster_data):
+  # monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
 
   print("ID | Type         | ATK Power | DEF Power | HP   |")
   for monster in monster_data[1:]:
       print(f"{monster[0]:<2} | {monster[1]:<12} | {monster[2]:<9} | {monster[3]:<9} | {monster[4]:<4} | ")
 
 
-def tambah_monster(username, role, coin):
-  monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
+def tambah_monster(username, role, coin, monster_data):
+  # monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
   print("Memulai pembuatan monster baru")
   while True:
     monster_name = input(">>> Masukkan Type / Nama : ")
@@ -89,8 +89,8 @@ def tambah_monster(username, role, coin):
     print("Monster gagal ditambahkan!") 
 
 
-def monster_management(username, role, coin):
-  monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
+def monster_management(username, role, coin, monster_data):
+  # monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
   print("SELAMAT DATANG DI DATABASE PARA MONSTER !!!")
   print("1. Tampilkan semua Monster")
   print("2. Tambah Monster baru")
@@ -99,9 +99,9 @@ def monster_management(username, role, coin):
   while not keluar:
     aksi = input(">>> Pilih Aksi : ")
     if (aksi == "1"):
-      lihat_monster()
+      lihat_monster(monster_data)
     elif (aksi == "2"):
-      username, role, coin, monster_data = tambah_monster(username, role, coin)
+      username, role, coin, monster_data = tambah_monster(username, role, coin, monster_data)
     elif (aksi == "3"):
       print("Dadah, sampai jumpa lagi!")
       keluar = True

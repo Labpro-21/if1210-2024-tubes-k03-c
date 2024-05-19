@@ -3,8 +3,8 @@ sys.path.append('src')
 
 import operateCSV
 
-def laboratory(username, role, coin):
-  user_data = operateCSV.baca_csv(r"data\file_csv\user.csv")
+def laboratory(username, role, coin, user_data, monster_inventory, monster_data):
+  # user_data = operateCSV.baca_csv(r"data\file_csv\user.csv")
 
   username_login = username
 
@@ -18,8 +18,8 @@ def laboratory(username, role, coin):
       break
 
   if user_id:
-    monster_inventory = operateCSV.baca_csv(r"data\file_csv\monster_inventory.csv")
-    monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
+    # monster_inventory = operateCSV.baca_csv(r"data\file_csv\monster_inventory.csv")
+    # monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
 
     print(">>> LABORATORY")
     print()
@@ -82,9 +82,9 @@ def laboratory(username, role, coin):
               upgrade_confirm = input().upper()
 
               if upgrade_confirm == "Y":
-                if upgrade_price[monster_level] <= coin:
+                if upgrade_price[monster_level] <= int(coin):
                   # user_oc -= upgrade_price[monster_level]
-                  coin -= upgrade_price[monster_level]
+                  coin = int(coin) - upgrade_price[monster_level]
                   monster_level += 1
                   print(f"Selamat, {monster_name} berhasil di-upgrade ke level {monster_level}!")
 

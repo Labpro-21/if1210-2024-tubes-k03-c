@@ -24,7 +24,7 @@ def get_valid_password():
         else:
             print("Password harus terdiri dari minimal 8 karakter!")
 
-def register(user, user_data, monster_data):
+def register(user, user_data, monster_data, monster_inventory):
   if user: # Jika user telah login
     print("Register gagal!")
     print(f"Anda telah login dengan username {user}, silakan lakukan 'LOGOUT' sebelum melakukan register.")
@@ -74,13 +74,13 @@ def register(user, user_data, monster_data):
           break
       if monster_name:
         print(f"Selamat datang, Agent {username}. Mari kita mengalahkan Dr. Asep Spakbor dengan {monster_name}!")
+        monster_inventory.append([new_id, monster_id, '1'])
       else:
         print("Monster tidak ditemukan.")
     else:
       print("Pilihan monster tidak valid.")
-
   # operateCSV.tulis_csv(r'data\user.csv', merge_user)
   # monster_data = operateCSV.baca_csv(r'data\monster.csv')
-  return username, monster_id
+  return username, monster_id, merge_user, monster_inventory
 
 # register("", operateCSV.baca_csv(r'data\user.csv'))
