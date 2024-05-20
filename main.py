@@ -55,10 +55,7 @@ while not(berhenti):
         storage = testloader.get_storage(item_inventory, user_id, monster_data)
         user_inventory=[]
         #monster_list = 
-        F07.finventory(user_data, username, user_id,
-                      monster_data , user_monster, 
-                      monster_inventory, storage,user_inventory, item_inventory,
-                      monster_data )
+        F07.finventory(user_data, username, user_id, monster_data , user_monster, monster_inventory, storage,user_inventory, item_inventory, monster_data )
       elif role=='admin':
         print("Maaf, Anda bukan seorang agent! Anda tidak memiliki izin untuk menggunakan perintah ini.")
     else :    

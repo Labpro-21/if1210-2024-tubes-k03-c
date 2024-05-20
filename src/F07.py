@@ -3,10 +3,8 @@ import testloader
 import math
 import glbfunc
 import os
-def finventory(user_data:list, username:str, puser_id : int, 
-                monsterinv_list : list, user_monster : list,
-                monster_invent : list, storage : list, user_inventory : list, 
-                pdata_item_inventory : list, pmonster_data : list ):
+import operateCSV
+def finventory(user_data:list, username:str, puser_id : int, monsterinv_list : list, user_monster : list,monster_invent : list, storage : list, user_inventory : list, pdata_item_inventory : list, pmonster_data : list ):
 
     user_id = testloader.get_uid(user_data, username)
     item_user = glbfunc.search_user(user_data, user_id)
@@ -107,3 +105,4 @@ def finventory(user_data:list, username:str, puser_id : int,
             Quantity    : {type_qty}
                 """)
             os.system('pause')
+            
