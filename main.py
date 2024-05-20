@@ -1,4 +1,4 @@
-import sys
+import sys,math
 sys.path.append('src')
 
 import B04, F01, F02, F03, F04, F07, F08, F09, F10, F11, F12, F13, F14, F15, F16
@@ -141,8 +141,8 @@ while not(berhenti):
         print(f"""============== STATS ==============
     Total hadiah      : {total_oc} OC
     Jumlah stage      : {stage-1}
-    Damage diberikan  : {total_dealt}
-    Damage diterima   : {total_taken}
+    Damage diberikan  : {total_dealt:.2f}
+    Damage diterima   : {total_taken:.2f}
     """)
       elif role=='admin':
         print("Maaf, Anda bukan seorang agen! Anda tidak memiliki izin untuk menggunakan perintah ini.")
