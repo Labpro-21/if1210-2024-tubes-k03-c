@@ -3,7 +3,7 @@ sys.path.append('src')
 
 import operateCSV
 
-def lihat_shop_monster(monster_data:list, monster_shop_data:list):
+def lihat_shop_monster(monster_data, monster_shop_data):
   # monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
   # monster_shop_data = operateCSV.baca_csv(r"data\file_csv\monster_shop.csv")
     
@@ -27,7 +27,7 @@ def lihat_shop_monster(monster_data:list, monster_shop_data:list):
       print(f"{monster_id:<2} | {monster_details[0]:<12} | {monster_details[1]:<9} | {monster_details[2]:<9} | {monster_details[3]:<4} | {stock:<4} | {price:<5} | ")
 
 
-def lihat_shop_potion(item_shop_data:list):
+def lihat_shop_potion(item_shop_data):
   # item_shop_data = operateCSV.baca_csv(r"data\file_csv\item_shop.csv")
         
   item_info = {}
@@ -44,7 +44,7 @@ def lihat_shop_potion(item_shop_data:list):
 
 
 # Agent
-def beli_shop(beli:str, username:str, role:str, coin:str, user_data:list, monster_data:list, monster_inventory:list, monster_shop_data:list, item_inventory:list, item_shop:list) -> tuple(str, str, str, list, list, list, list, list):
+def beli_shop(beli, username, role, coin, user_data, monster_data, monster_inventory, monster_shop_data, item_inventory, item_shop):
   # user_data = operateCSV.baca_csv(r"data\file_csv\user.csv")
 
   username_login = username
@@ -156,8 +156,7 @@ def beli_shop(beli:str, username:str, role:str, coin:str, user_data:list, monste
       # operateCSV.tulis_csv(r"data\user.csv", user_data)
 
 
-def shop_currency(username:str, role:str, coin:str, user_data:list, monster_data:list, monster_inventory:list, monster_shop:list, item_inventory:list, item_shop:list) -> tuple(str, str, str, list, list, list, list, list):
-
+def shop_currency(username, role, coin, user_data, monster_data, monster_inventory, monster_shop, item_inventory, item_shop):
   print("Irasshaimase! Selamat datang di SHOP!!")
   keluar = False
   while not keluar:
