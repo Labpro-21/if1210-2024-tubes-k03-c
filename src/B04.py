@@ -109,7 +109,7 @@ def jackpot(username, coin, user_data, monster_data, monster_inventory):
       
     else:
       print("Maaf, anda tidak memiliki cukup OC untuk bermain JACKPOT.")
-      return
+      return coin, monster_inventory
 
   else:
     print("Jackpot dibatalkan.")
