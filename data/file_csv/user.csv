@@ -1,6 +1,6 @@
-id;username;password;role;oc
-1;Mr_Monogram;monogrammer77;admin;0
-2;Asep_Spakbor;asepwow123;agent;993
-3;Agen_P;platypus123;agent;0
-4;varel;varel123;admin;0
-5;shinji;lovemio3005;agent;9999
+monster_id,stock,price
+1,10,500
+2,4,700
+3,2,1000
+4,8,550
+5,7,600

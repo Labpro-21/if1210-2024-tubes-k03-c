@@ -61,7 +61,7 @@ def jackpot(username, coin):
       """)
 
       if item1 == item2 and item1 == item3:
-        monster_random_id = RNG(1, len(monster_data)-1)
+        monster_random_id = F00.RNG(1, len(monster_data)-1)
         reward_monster = monster_data[monster_random_id][1]
 
         for monster_entry in monster_inventory[1:]:
