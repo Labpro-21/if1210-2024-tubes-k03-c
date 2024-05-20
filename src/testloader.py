@@ -49,7 +49,7 @@ def filter_potion_nama(monster_type : str ,user_id : int, user_inventory : list)
     nama_type=''
     for user_inv in user_inventory:        
         if user_inv[u_id] == user_id and user_inv[1] == monster_type:
-            nama_type = glbfunc.ket_potion(monster_type)
+            nama_type = user_inv[1]
             break
     return nama_type
 
