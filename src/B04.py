@@ -3,8 +3,8 @@ sys.path.append('src')
 
 import F00, operateCSV
 
-def jackpot(username, coin):
-  user_data = operateCSV.baca_csv(r"data\file_csv\user.csv")
+def jackpot(username, coin, user_data, monster_data, monster_inventory):
+  # user_data = operateCSV.baca_csv(r"data\file_csv\user.csv")
 
   username_login = username
 
@@ -17,9 +17,9 @@ def jackpot(username, coin):
       user_oc = int(user_entry[4])
       break
 
-  if user_id:
-    monster_inventory = operateCSV.baca_csv(r"data\file_csv\monster_inventory.csv")
-    monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
+  # if user_id:
+  #   monster_inventory = operateCSV.baca_csv(r"data\file_csv\monster_inventory.csv")
+  #   monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
   
   print("""
   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  
@@ -41,8 +41,8 @@ def jackpot(username, coin):
   play_confirm = input().upper()
 
   if play_confirm == "Y":
-    if 400 <= user_oc:
-      user_oc -= 400
+    if 400 <= int(coin):
+      coin = int(coin) - 400
       all_item = []
       item1 = item_jackpot[F00.RNG(0,4)]
       item2 = item_jackpot[F00.RNG(0,4)]
@@ -61,7 +61,7 @@ def jackpot(username, coin):
       """)
 
       if item1 == item2 and item1 == item3:
-        monster_random_id = F00.RNG(1, len(monster_data)-1)
+        monster_random_id = RNG(1, len(monster_data)-1)
         reward_monster = monster_data[monster_random_id][1]
 
         for monster_entry in monster_inventory[1:]:
@@ -100,9 +100,7 @@ def jackpot(username, coin):
             reward += 500
         print(f"{reward} OC telah ditambahkan ke akun Anda! ")
         
-        for user_entry in user_data[1:]:
-          if user_entry[1] == username_login:
-            user_entry[4] = str(int(user_entry[4]) + reward)
+        coin = int(coin) + reward
 
 
       return coin, monster_inventory
@@ -111,7 +109,7 @@ def jackpot(username, coin):
       
     else:
       print("Maaf, anda tidak memiliki cukup OC untuk bermain JACKPOT.")
-      return
+      return coin, monster_inventory
 
   else:
     print("Jackpot dibatalkan.")

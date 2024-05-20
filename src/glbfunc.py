@@ -129,4 +129,3 @@ def ket_potion(source) :
     elif source == "healing" :
         type_posion = "Heal"
     return type_posion
-

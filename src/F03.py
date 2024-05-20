@@ -1,10 +1,6 @@
 def logout(user, role, coin):
-  print(">>> LOGOUT")
-  if user:
     username = ""
     role = ""
-    coin = 0
+    coin = ""
+    print("Berhasil logout!")
     return  username, role, coin
-  else:
-    print("Logout gagal!")
-    print("Anda belum login, silahkan login terlebih dahulu sebelum melakukan logout")

@@ -3,9 +3,9 @@ sys.path.append('src')
 
 import operateCSV
 
-def lihat_shop_monster():
-  monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
-  monster_shop_data = operateCSV.baca_csv(r"data\file_csv\monster_shop.csv")
+def lihat_shop_monster(monster_data, monster_shop_data):
+  # monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
+  # monster_shop_data = operateCSV.baca_csv(r"data\file_csv\monster_shop.csv")
     
   monster_info = {}
   for monster in monster_data[1:]:
@@ -27,8 +27,8 @@ def lihat_shop_monster():
       print(f"{monster_id:<2} | {monster_details[0]:<12} | {monster_details[1]:<9} | {monster_details[2]:<9} | {monster_details[3]:<4} | {stock:<4} | {price:<5} | ")
 
 
-def lihat_shop_potion():
-  item_shop_data = operateCSV.baca_csv(r"data\file_csv\item_shop.csv")
+def lihat_shop_potion(item_shop_data):
+  # item_shop_data = operateCSV.baca_csv(r"data\file_csv\item_shop.csv")
         
   item_info = {}
   for i, item in enumerate(item_shop_data[1:], start=1): 
@@ -44,8 +44,8 @@ def lihat_shop_potion():
 
 
 # Agent
-def beli_shop(beli, username, coin):
-  user_data = operateCSV.baca_csv(r"data\file_csv\user.csv")
+def beli_shop(beli, username, role, coin, user_data, monster_data, monster_inventory, monster_shop_data, item_inventory, item_shop):
+  # user_data = operateCSV.baca_csv(r"data\file_csv\user.csv")
 
   username_login = username
 
@@ -58,9 +58,11 @@ def beli_shop(beli, username, coin):
       break
 
   if (beli == "monster"):
-    monster_inventory = operateCSV.baca_csv(r"data\file_csv\monster_inventory.csv")
-    monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
-    monster_shop_data = operateCSV.baca_csv(r"data\file_csv\monster_shop.csv")
+    # monster_inventory = operateCSV.baca_csv(r"data\file_csv\monster_inventory.csv")
+    # monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
+    # monster_shop_data = operateCSV.baca_csv(r"data\file_csv\monster_shop.csv")
+    # item_shop = operateCSV.baca_csv(r"data\file_csv\item_shop.csv")
+    # item_inventory = operateCSV.baca_csv(r"data\file_csv\item_inventory.csv")
     id_monster = input(">>> Masukkan id monster: ")
     for i, item in enumerate(monster_shop_data[1:], start=1): 
       if item[0] == id_monster:
@@ -68,11 +70,11 @@ def beli_shop(beli, username, coin):
         break
     if index == -1:
       print("Monster dengan ID tersebut tidak ditemukan.")
-      return user_data, monster_inventory, monster_shop_data, coin
+      return username, role, coin, user_data, monster_inventory, monster_shop_data, item_inventory, item_shop
     
     if int(monster_shop_data[index][2]) > int(coin):
       print("OC-mu tidak cukup.")
-      return user_data, monster_inventory, monster_shop_data, coin
+      return username, role, coin, user_data, monster_inventory, monster_shop_data, item_inventory, item_shop
 
     if (int(monster_shop_data[index][1]) > 0):
       monster_name = ""
@@ -84,19 +86,15 @@ def beli_shop(beli, username, coin):
       for monster_entry in monster_inventory[1:]:
         if int(monster_entry[0]) == int(user_id) and monster_entry[1] == id_monster:
           print(f"Monster {monster_name} sudah ada dalam inventory-mu! Pembelian dibatalkan.")
-          return user_data, monster_inventory, monster_shop_data, coin
+          return username, role, coin, user_data, monster_inventory, monster_shop_data, item_inventory, item_shop
 
       print(f"Berhasil membeli item: {monster_name}. Item sudah masuk ke inventory-mu!")
       monster_inventory.append([user_id, id_monster, 1])
       monster_shop_data[index][1] = str(int(monster_shop_data[index][1]) - 1)
 
-      for user_entry in user_data[1:]:
-        if user_entry[1] == username_login:
-          user_entry[4] = str(int(user_entry[4]) - int(monster_shop_data[index][1]))
+      coin = str(int(coin) - int(monster_shop_data[index][2]))
 
-      coin = int(coin) - int(monster_shop_data[index][2])
-
-      return user_data, monster_inventory, monster_shop_data, coin
+      return username, role, coin, user_data, monster_inventory, monster_shop_data, item_inventory, item_shop
       # operateCSV.tulis_csv(r"data\monster_inventory.csv", monster_inventory)
       # operateCSV.tulis_csv(r"data\monster_shop.csv", monster_shop_data)
       # operateCSV.tulis_csv(r"data\user.csv", user_data)
@@ -105,25 +103,30 @@ def beli_shop(beli, username, coin):
       print("Stok habis.")
 
   elif (beli == "potion"):
-    item_shop = operateCSV.baca_csv(r"data\file_csv\item_shop.csv")
-    item_inventory = operateCSV.baca_csv(r"data\file_csv\item_inventory.csv")
+    # monster_inventory = operateCSV.baca_csv(r"data\file_csv\monster_inventory.csv")
+    # monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
+    # monster_shop_data = operateCSV.baca_csv(r"data\file_csv\monster_shop.csv")
+    # item_shop = operateCSV.baca_csv(r"data\file_csv\item_shop.csv")
+    # item_inventory = operateCSV.baca_csv(r"data\file_csv\item_inventory.csv")
 
     id_potion = input(">>> Masukkan id potion: ")
     jumlah = int(input(">>> Masukkan jumlah: "))
     potion_fixed = ["Strength", "Resilience", "Healing"]
-    
+
+    index = -1
     for i, item in enumerate(item_shop[1:], start=1):
       if item[0] == potion_fixed[int(id_potion)-1]:
         index = i
         break
-    else:
+    if index == -1:
       print("Potion dengan ID tersebut tidak ditemukan.")
-      return user_data, item_inventory, item_shop, coin
+      return username, role, coin, user_data, monster_inventory, monster_shop_data, item_inventory, item_shop
+
 
     total = jumlah*int(item_shop[index][2])
-    if int(total) > int(coin):
+    if total > int(coin):
       print("OC-mu tidak cukup.")
-      return user_data, item_inventory, item_shop, coin
+      return username, role, coin, user_data, monster_inventory, monster_shop_data, item_inventory, item_shop
     
     if int(item_shop[index][1]) >= jumlah:
       print(f"Berhasil membeli item: {jumlah} Potion of {potion_fixed[index-1]}. Item sudah masuk ke inventory-mu!")
@@ -147,13 +150,13 @@ def beli_shop(beli, username, coin):
 
       coin = int(coin) - total
 
-      return user_data, item_inventory, item_shop, coin
+      return username, role, coin, user_data, monster_inventory, monster_shop_data, item_inventory, item_shop
       # operateCSV.tulis_csv(r"data\item_inventory.csv", item_inventory)
       # operateCSV.tulis_csv(r"data\item_shop.csv", item_shop)
       # operateCSV.tulis_csv(r"data\user.csv", user_data)
 
 
-def shop_currency(username, role, coin):
+def shop_currency(username, role, coin, user_data, monster_data, monster_inventory, monster_shop, item_inventory, item_shop):
   print("Irasshaimase! Selamat datang di SHOP!!")
   keluar = False
   while not keluar:
@@ -161,19 +164,19 @@ def shop_currency(username, role, coin):
     if (aksi == "lihat"):
       lihat = input(">>> Mau lihat apa? (monster/potion): ")
       if (lihat == "monster"):
-        lihat_shop_monster()
+        lihat_shop_monster(monster_data, monster_shop)
       elif (lihat == "potion"):
-        lihat_shop_potion()
+        lihat_shop_potion(item_shop)
       else: print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")
     elif (aksi == "beli"):
       print(f"Jumlah O.W.C.A. Coin-mu sekarang {coin}.")
       print()
       beli = input(">>> Mau beli apa? (monster/potion): ")
       if beli.lower() == "monster":
-        (user_data, monster_inventory, monster_shop, coin) = (beli_shop(beli, username, coin))
+        (username, role, coin, user_data, monster_inventory, monster_shop, item_inventory, item_shop) = (beli_shop(beli, username, role, coin, user_data, monster_data, monster_inventory, monster_shop, item_inventory, item_shop))
         
       elif beli.lower() == "potion":
-        (user_data, item_inventory, item_shop, coin) = (beli_shop(beli, username, coin))
+        (username, role, coin, user_data, monster_inventory, monster_shop, item_inventory, item_shop) = (beli_shop(beli, username, role, coin, user_data, monster_data, monster_inventory, monster_shop, item_inventory, item_shop))
       else:
         print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")
     elif (aksi == "keluar"):
