@@ -60,7 +60,8 @@ def finventory(user_data:list, username:str, puser_id : int, monsterinv_list : l
             no_urut += 1
 
         elif type_inv == "potion":
-            (nama_type, type_qty) = testloader.filter_potion(type_id, puser_id, pdata_item_inventory)
+            nama_type = testloader.filter_potion_nama(type_id, puser_id, pdata_item_inventory)            
+            type_qty = testloader.filter_potion_qty(type_id, puser_id, pdata_item_inventory) 
             print_monster += f'\n{no_urut}. Potion (Type: {nama_type}, Qty: {type_qty})'
             no_urut += 1
             
@@ -98,7 +99,8 @@ def finventory(user_data:list, username:str, puser_id : int, monsterinv_list : l
                 Level       :{level}
                     """)
             elif type_inv == "potion" :
-                (nama_type,type_qty)= testloader.filter_potion(type_id, puser_id, pdata_item_inventory)            
+                nama_type = testloader.filter_potion_nama(type_id, puser_id, pdata_item_inventory)            
+                type_qty = testloader.filter_potion_qty(type_id, puser_id, pdata_item_inventory) 
                 print(f"""
             Potion
             Type        : {nama_type}
