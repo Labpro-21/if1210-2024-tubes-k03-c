@@ -220,6 +220,7 @@ def hapus(hapus, username, role, coin, monster_data, monster_shop_data, item_sho
       return username, role, coin, monster_shop_data, item_shop_data
       # operateCSV.tulis_csv(r"data\monster_shop.csv", monster_shop_data)
     else: # hapus_confirm == n
+      return username, role, coin, monster_shop_data, item_shop_data
       print("Penghapusan dibatalkan.") 
 
   elif (hapus == "potion"):
@@ -239,7 +240,8 @@ def hapus(hapus, username, role, coin, monster_data, monster_shop_data, item_sho
       return username, role, coin, monster_shop_data, item_shop_data
       # operateCSV.tulis_csv(r"data\item_shop.csv", item_shop_data)
     else:
-      print("Penghapusan dibatalkan.")    
+      print("Penghapusan dibatalkan.")
+      return username, role, coin, monster_shop_data, item_shop_data
 
   else:
     print("Input tidak valid. Silakan masukkan 'monster' atau 'potion'.")

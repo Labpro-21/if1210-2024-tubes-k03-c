@@ -87,7 +87,7 @@ def tambah_monster(username, role, coin, monster_data):
     # operateCSV.tulis_csv(r"data\file_csv\monster.csv", monster_data)
   else: # hapus_confirm == n
     print("Monster gagal ditambahkan!") 
-
+    return username, role, coin, monster_data
 
 def monster_management(username, role, coin, monster_data):
   # monster_data = operateCSV.baca_csv(r"data\file_csv\monster.csv")
