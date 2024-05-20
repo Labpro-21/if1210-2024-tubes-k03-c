@@ -1,4 +1,4 @@
-import sys,math
+import sys
 sys.path.append('src')
 
 import B04, F01, F02, F03, F04, F07, F08, F09, F10, F11, F12, F13, F14, F15, F16
