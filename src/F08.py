@@ -353,7 +353,8 @@ def battle(username : str, role : str, coins : int,menu : str, stage : int, mons
                     Pdmg=0 
                     break
         if command==3:
-            fight=False
+            damage_taken+= Admg
+            damage_dealt+=Pdmg
             break
         if e_hp<=0:
             win=True
@@ -389,7 +390,7 @@ def battle(username : str, role : str, coins : int,menu : str, stage : int, mons
             return coin,win,damage_dealt,damage_taken,gained
         else:
             return username,role,coin
-    elif not fight:
+    elif command==3:
         gained=0
         print('Kamu mengakhiri pertandingan.\n')
         if menu=='ARENA':

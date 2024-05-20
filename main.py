@@ -153,8 +153,8 @@ while not(berhenti):
         print(f"""============== STATS ==============
     Total hadiah      : {total_oc} OC
     Jumlah stage      : {stage-1}
-    Damage diberikan  : {total_dealt}
-    Damage diterima   : {total_taken}
+    Damage diberikan  : {total_dealt:.2f}
+    Damage diterima   : {total_taken:.2f}
     """)
       elif role=='admin':
         print("Maaf, Anda bukan seorang agent! Anda tidak memiliki izin untuk menggunakan perintah ini.")
