@@ -30,7 +30,7 @@ def register(user, user_data, monster_data):
     print("Register gagal!")
     print(f"Anda telah login dengan username {user}, silakan lakukan 'LOGOUT' sebelum melakukan register.")
     print()
-    return user
+    return user, "-1", user_data, monster_inventory
     
   else: # Jika user belum login
     username = get_valid_username()
@@ -40,11 +40,11 @@ def register(user, user_data, monster_data):
     for row in user_data:  # cek tiap baris dari data 'user.csv'
       if username == row[1]:  # cek apakah username sudah terpakai
         print("Username telah terdaftar, silakan pilih username lain!")
-        return user
+        return user, "-1", user_data, monster_inventory
 
     if not password:
       print("Password tidak boleh kosong!")
-      return user
+      return user, "-1", user_data, monster_inventory
 
     new_user = [] # array untuk menampung data user baru saat register
   
