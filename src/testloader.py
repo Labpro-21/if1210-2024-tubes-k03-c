@@ -45,16 +45,21 @@ def filter_item(storage : list, user_id : int, user_inventory : list) -> list:
             user_inventory.append([item[u_i_type],item[u_i_q]])
     return user_inventory
 
-def filter_potion(monster_type : str ,user_id : int, user_inventory : list) :
-    res_potion = ['nama_tipe','qty']
+def filter_potion_nama(monster_type : str ,user_id : int, user_inventory : list) :
     nama_type=''
-    qty=0
     for user_inv in user_inventory:        
         if user_inv[u_id] == user_id and user_inv[1] == monster_type:
             nama_type = glbfunc.ket_potion(monster_type)
+            break
+    return nama_type
+
+def filter_potion_qty(monster_type : str ,user_id : int, user_inventory : list) :
+    qty=0
+    for user_inv in user_inventory:        
+        if user_inv[u_id] == user_id and user_inv[1] == monster_type:
             qty=user_inv[2]
             break
-    return nama_type,qty
+    return qty
             
 #mengisi monster inventory setelah di filter
 def monster_inventory(monster_list : list,user_monster : list, monster_invent : list) -> list:
