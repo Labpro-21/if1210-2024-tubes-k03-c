@@ -220,8 +220,8 @@ def hapus(hapus, username, role, coin, monster_data, monster_shop_data, item_sho
       return username, role, coin, monster_shop_data, item_shop_data
       # operateCSV.tulis_csv(r"data\monster_shop.csv", monster_shop_data)
     else: # hapus_confirm == n
+      print("Penghapusan dibatalkan.")
       return username, role, coin, monster_shop_data, item_shop_data
-      print("Penghapusan dibatalkan.") 
 
   elif (hapus == "potion"):
     # item_shop_data = operateCSV.baca_csv(r"data\file_csv\item_shop.csv")
